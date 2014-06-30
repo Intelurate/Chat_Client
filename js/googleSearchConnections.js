@@ -20,7 +20,7 @@ $(function() {
 	socket.on('showurlconnections', function (urls) {
 		for(var a = 0; a<urls.length; a++) {
 			var googLink = $(searchRecords[a]);	
-			googLink.find('.rc h3').append('<div style="font-size:12px;width:50%;padding:3px;border:1px solid #999;">'+urls[a].count+' live connections <img src="'+domain+'images/active_status.png"/></div>');
+			googLink.find('.rc h3').append('<div style="font-size:12px;width:50%;padding:3px;border:1px solid #999;">'+urls[a].count+' live connections <img src="'+chrome.extension.getURL("/images/active_status.png")+'"/></div>');
 		}
 	});
 

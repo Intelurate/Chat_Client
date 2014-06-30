@@ -1,5 +1,6 @@
 
 var StatusModel = Backbone.Model.extend({
+	
 	initialize: function () {
 
 	},
@@ -26,7 +27,7 @@ var StatusView = Backbone.View.extend({
 
 	updateStatus : function(status_message) {
 
-		this.$el.empty().text(status_message);			
+		this.$el.empty().append('<div class="status_message">'+status_message+'</div>');			
 
 			this.$el.stop().css({opacity: 1 });
 

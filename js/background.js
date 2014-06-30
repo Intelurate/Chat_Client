@@ -1,6 +1,11 @@
 
-var tabObjs = {};
+
+
 var startClick = false;
+
+var username = null;
+
+chrome.chatApp = { username : "Eddie" };
 
 var loadAppFiles = function(tabId, scripts, callBack) {
 	var obj = {
@@ -39,89 +44,74 @@ var loadAppFiles = function(tabId, scripts, callBack) {
 }
 
 
-var pageLoadTime = 0;
+window.tabObjs = {};
 
-chrome.browserAction.onClicked.addListener(function(tab, loadingLoop) {
+/*
 
-	chrome.tabs.executeScript(tab.id,{"code": "window.stop();"});
+chrome.browserAction.onClicked.addListener(function(tab) {
 
-	var tabHashed = MD5(tab.id.toString());
+	var tabHashed = "__"+MD5(tab.id.toString())+"__";
 
-	if(startClick == false || loadingLoop == true) {
+	if(!tabObjs[tabHashed]) {
+		tabObjs[tabHashed] = {};
+		tabObjs[tabHashed].appStatus = "notLoaded";
+	}
 
-		if(tab.status == "complete") {
-
-			if(tabObjs[tabHashed]) {
-				if(tabObjs[tabHashed].status == "loaded") {
-					tabObjs[tabHashed].status = "removed";			
-					chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-					  	chrome.tabs.sendMessage(tab.id, { chatid: tabHashed, action : "hidechat" }, function(response) {			
-					  	});
-					});
-				} else if(tabObjs[tabHashed].status == "removed") {
-					tabObjs[tabHashed].status = "loaded";	
-					chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-					  	chrome.tabs.sendMessage(tab.id, { chatid: tabHashed, action : "showchat" }, function(response) {
-					  	});
-					});
-				}
-			} else {
-				tabObjs[tabHashed] = {};
-				tabObjs[tabHashed].url = tab.url;
-
-				startClick = false;
-				loadAppFiles(tab.id, [
-					'css/styles.css', 
-					'js/jquery.js', 
-					'js/underscore.js', 
-					'js/backbone.js', 
-					'js/icanhaz.js', 
-					'js/socketio.js', 
-					'js/md5.js', 
-					'js/templates.js', 					
-					'js/viewModels/headerViewModel.js',
-					'js/viewModels/contentViewModel.js',
-					'js/viewModels/appViewModel.js',
-					'js/viewModels/statusViewModel.js',
-					'js/chat.js'], 
-					function() {
-						tabObjs[tabHashed].status = "loaded";
-						pageLoadTime = 0;
-						chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-						  	chrome.tabs.sendMessage(tab.id, { chatid: tabHashed, action : "loadchat" }, function(response) {});
-					});					
-				});				
-			}	
-		} else {
-
-			console.log('loading...');
+	console.log(tabObjs[tabHashed].appStatus)
+	
+	if(tabObjs[tabHashed].appStatus == "notLoaded") {
 		
-			if(startClick == false && loadingLoop == undefined) {
-				startClick = true;
-				console.log('App will load after web page loads.');
-			}
+		chrome.tabs.executeScript(tab.id,{"code": "window.stop();"});
 
-			setTimeout(function() {		
-				chrome.tabs.getSelected(null, function(tab) {
-					chrome.browserAction.onClicked.dispatch(tab, true);
-				});	
-			}, 500);
-		}
+		loadAppFiles(tab.id, [
+			'css/styles.css', 
+			'js/jquery.js', 
+			'js/underscore.js', 
+			'js/backbone.js', 
+			'js/icanhaz.js', 
+			'js/socketio.js', 
+			'js/md5.js', 
+			'js/templates.js', 					
+			'js/viewModels/headerViewModel.js',
+			'js/viewModels/contentViewModel.js',
+			'js/viewModels/appViewModel.js',
+			'js/viewModels/statusViewModel.js',
+			'js/chat.js'], 
+		function() {			
+
+			window.tabObjs[tabHashed].appStatus = "displayed";
+			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+			  	chrome.tabs.sendMessage(tab.id, { action : "chatloaded" }, function(response) {
+			  		tabObjs[tabHashed].appStatus = response;
+			  	});
+			});					
+		});	
+
+	} else if(tabObjs[tabHashed].appStatus == "displayed") {
+
+		console.log(tabHashed)
+
+		tabObjs[tabHashed].appStatus = "hidden";
+
+		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		  	chrome.tabs.sendMessage(tab.id, { action : "hidechat" }, function(response) {			
+		  		console.log('shit')
+		  	});
+		});
+
+	} else if(tabObjs[tabHashed].appStatus == "hidden") {		
+
+		tabObjs[tabHashed].appStatus = "displayed";
+		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		  	chrome.tabs.sendMessage(tab.id, { action : "showchat" }, function(response) {
+		  		console.log(response);
+		  	});
+		});
+
 	}
 });
 
-
-chrome.tabs.onCreated.addListener(function(tab) {
-	//console.log(tab)
-});
-
-
-chrome.tabs.onRemoved.addListener(function(tabId, tab) {
-	var tabHashed = MD5(tabId.toString());
-	if(tabObjs[tabHashed]) {
-		delete tabObjs[tabHashed];
-	}
-});
+*/
 
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
@@ -145,18 +135,70 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	}	
 
 	if(onGoogle == false) {
+
+		console.log(changeInfo.status);
+
+		var tabHashed = "__"+MD5(tab.id.toString())+"__";
+
+		if(changeInfo.status == "loading") {
+			if(window.tabObjs[tabHashed]) {
+				//delete window.tabObjs[tabHashed];
+			}
+		} 	
+
+		if(changeInfo.status == "complete") {
+
+			if(!window.tabObjs[tabHashed]) {				
+				window.tabObjs[tabHashed] = {
+					appStatus : "notLoaded"
+				};
+			}
+
+			loadAppFiles(tab.id, ['js/checkForApp.js'], function() {	
+				chrome.tabs.sendMessage(tab.id, { action : "checkApp" }, function(response) {					
+					if(response) {							
+						if(response.exist == false) {							
+							loadAppFiles(tab.id, [
+								'css/styles.css', 
+								'js/jquery.js', 
+								'js/underscore.js', 
+								'js/backbone.js', 
+								'js/icanhaz.js', 
+								'js/socketio.js', 
+								'js/md5.js', 
+								'js/templates.js',
+
+								'js/viewModels/appViewModel.js',
+								'js/viewModels/tabViewModel.js',
+								'js/viewModels/discViewModel.js',
+								'js/viewModels/userListViewModel.js',
+
+								'js/viewModels/headerViewModel.js',
+								'js/viewModels/contentViewModel.js',
+								'js/viewModels/statusViewModel.js',
+								'js/chat.js'], 
+
+							function() {
+								window.tabObjs['__'+tabHashed+'__'].appStatus = "displayed";
+								chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+								  	chrome.tabs.sendMessage(tab.id, { action : "chatloaded" }, function(response) {									  		
+								  		window.tabObjs["__"+tabHashed+"__"].appStatus = response;
+								  	});
+								});					
+							});	
+						}
+					}
+				});
+			});
+		}
 	
 		var hashExist = tab.url.indexOf("#");
 		var tabHashed = MD5(tabId.toString());
 		if(tabObjs[tabHashed]) {
 			if(changeInfo.status == "complete") {
-				
 				if(hashExist != -1) {
 					var hash1 = tabObjs[tabHashed].url.split("#")[1]; 
 					var hash2 = tab.url.split("#")[1];
-
-					console.log(hash1);
-					console.log(hash2);
 					
 					if(hash1 == hash2) {
 						console.log('sweet')
