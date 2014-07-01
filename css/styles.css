@@ -225,6 +225,33 @@ body .page_swarm .page_swarm_contents .chatarea .message{
 	-moz-border-radius: 4px !important;
 	border-radius: 4px !important;	
 	background-color: #fff !important;
+	overflow: hidden;
+}
+
+
+body .page_swarm .page_swarm_contents .chatarea .facecons{
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	
+	border-top: 1px solid #ccc;
+	overflow: hidden;
+}
+
+body .page_swarm .page_swarm_contents .chatarea .facecon{
+	font-size: 16px;
+	background-color: #fff;
+	float: right;
+	padding: 3px;
+	margin: 0;
+	display: none;
+}
+
+
+body .page_swarm .page_swarm_contents .chatarea .message .facecons_trigger{
+	background-color:#fff;
+	cursor: pointer;
+	display: block;
 }
 
 body .page_swarm .page_swarm_contents .chatarea .message textarea{
@@ -239,11 +266,10 @@ body .page_swarm .page_swarm_contents .chatarea .message textarea{
 	border: 1px solid #fff !important;
 	width: 100%;
 	outline: 0 !important;
-
 	-webkit-box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0) !important;
 	-moz-box-shadow:    0px 0px 0px 0px rgba(255, 255, 255, 0) !important;
 	box-shadow:         0px 0px 0px 0px rgba(255, 255, 255, 0) !important;
-
+	 resize: none;
 }
 
 body .page_swarm .page_swarm_contents .chatarea .message textarea:focus{
@@ -345,7 +371,75 @@ body .page_swarm .conversation_holder .conversation .spacer{
 }
 
 
-
+.icon-thumbs-up:before {
+	content: "\e601";
+}
+.icon-thumbs-up2:before {
+	content: "\e602";
+}
+.icon-happy:before {
+	content: "\e603";
+}
+.icon-smiley:before {
+	content: "\e604";
+}
+.icon-tongue:before {
+	content: "\e605";
+}
+.icon-sad:before {
+	content: "\e606";
+}
+.icon-wink:before {
+	content: "\e607";
+}
+.icon-grin:before {
+	content: "\e608";
+}
+.icon-cool:before {
+	content: "\e609";
+}
+.icon-angry:before {
+	content: "\e60a";
+}
+.icon-evil:before {
+	content: "\e60b";
+}
+.icon-shocked:before {
+	content: "\e60c";
+}
+.icon-confused:before {
+	content: "\e60d";
+}
+.icon-neutral:before {
+	content: "\e60e";
+}
+.icon-wondering:before {
+	content: "\e60f";
+}
+.icon-point-up:before {
+	content: "\e610";
+}
+.icon-point-right:before {
+	content: "\e611";
+}
+.icon-point-down:before {
+	content: "\e612";
+}
+.icon-point-left:before {
+	content: "\e613";
+}
+.icon-checkmark-circle:before {
+	content: "\e614";
+}
+.icon-chrome:before {
+	content: "\e615";
+}
+.icon-reply:before {
+	content: "\e616";
+}
+.icon-forward:before {
+	content: "\e617";
+}
 .icon-user:before {
 	content: "\e66f";
 }
