@@ -4,8 +4,9 @@ var domain = "http://localhost:8000/";
 //console.log(chrome);
 
 var headerBar = [			
-		'<div class="logo close_app">',
-			'<img src="'+chrome.extension.getURL("/images/page_swarm_icon.png")+'" width="30"/>',
+		'<div class="ps_icons left">',
+			'<div class="ps_icon icon-export close_app" title="Minimizes Discussion"></div>',
+			//'<img src="'+chrome.extension.getURL("/images/page_swarm_icon.png")+'" width="30"/>',
 		'</div>',
 		/*
 		'<div class="logo_name"></div>',
@@ -14,8 +15,12 @@ var headerBar = [
 			'<img class="minus_icon" src="'+chrome.extension.getURL("/images/minus_icon.png")+'" width="20"/>',
 		'</div>',
 		*/
-		'<div class="users">',
-			'<img src="'+chrome.extension.getURL("/images/page_swarm_users_icon.png")+'" width="30"/>',
+
+		'<div class="ps_icons right">',
+			'<div class="ps_icon icon-list"  title="Displays Menu"></div>',
+			'<div class="ps_icon icon-users users"  title="Availible Users Online"></div>',
+			//'<img src="'+chrome.extension.getURL("/images/page_swarm_users_icon.png")+'" width="30"/>',
+
 		'</div>',
 
 		'<div class="connections"><span class="connection_count"></span> <span class="connections_txt">connections</span></div>'

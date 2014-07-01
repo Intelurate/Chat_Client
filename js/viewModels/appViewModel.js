@@ -20,12 +20,22 @@ var AppView = Backbone.View.extend({
 	className : 'page_swarm',
 
 	events: {
-		//'mouseover': 'displayApp',
-		//'mouseout': 'appLeave',
+		'mouseover': 'appEnter',
+		'mouseout': 'appLeave',
 	},
 
 	initialize: function () {
 		this.render();
+	},
+	
+	appEnter: function(e) {
+		e.stopPropagation();
+		//$('html, body').css({'overflow' : 'hidden'}); 
+	},
+
+	appLeave: function(e) {
+		e.stopPropagation();
+		//$('html, body').css({'overflow' : ''}); 
 	},
 
 	render: function () {
@@ -52,6 +62,10 @@ var AppView = Backbone.View.extend({
 						'right' : '-500px'
 					});
 					PS.Views.TabView.$el.css({
+						'right' : '0px'
+					});
+				}else{
+					PS.Views.DiscView.$el.css({
 						'right' : '0px'
 					});
 				}

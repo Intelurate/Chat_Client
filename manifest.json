@@ -18,6 +18,7 @@
     "manifest_version": 2,
 
     "web_accessible_resources": [
+        "css/fonts/*",
         "images/*.png",
         "js/workers/test.js",
         "templates/*"

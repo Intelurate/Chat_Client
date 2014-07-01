@@ -116,27 +116,27 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
-	var onGoogle = false;
-	var googleQueryExist = tab.url.indexOf("search?");
-	if(googleQueryExist != -1) {
-		var googleUrl = tab.url.split("search?")[0];
-		if(googleUrl == 'https://www.google.com/' &&
-			tab.favIconUrl != undefined &&
-			tab.status == "complete") {	
 
-				loadAppFiles(tab.id, [					
-					'js/jquery.js', 
-					'js/socketio.js', 
-					'js/md5.js', 
-					'js/googleSearchConnections.js'], function(){});	
-		
-			onGoogle = true;
+	var onGoogle = false;
+	var querys = ['search', 'webhp'];
+	for(query in querys) {
+		var googleQueryExist = tab.url.indexOf(querys[query] + "?");
+		if(googleQueryExist != -1) {		
+			var googleUrl = tab.url.split(querys[query] + "?")[0];
+			if(googleUrl == 'https://www.google.com/' &&
+				tab.favIconUrl != undefined &&
+				tab.status == "complete") {	
+					loadAppFiles(tab.id, [					
+						'js/jquery.js', 
+						'js/socketio.js', 
+						'js/md5.js', 
+						'js/googleSearchConnections.js'], function(){});	
+				onGoogle = true;
+			}
 		}
-	}	
+	}
 
 	if(onGoogle == false) {
-
-		console.log(changeInfo.status);
 
 		var tabHashed = "__"+MD5(tab.id.toString())+"__";
 
