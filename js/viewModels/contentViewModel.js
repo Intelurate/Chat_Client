@@ -13,7 +13,7 @@ var ContentModel = Backbone.Model.extend({
 		}, this));
 
 		PS.socket.on('updatechat', _.bind(function (username, created, data) {
-			this.set({'updatechat' : {'name' : username.split('____')[1], 'date' : created, 'message' : data } });			
+			this.set({'updatechat' : {'name' : username, 'date' : created, 'message' : data } });			
 		}, this));
 
 		PS.socket.on('getsavedchat', _.bind(function (username, data, room) {
@@ -44,6 +44,7 @@ var ContentView = Backbone.View.extend({
 	events: {
 		'keydown .usernameForm .username': 'chatStart',
 		'keydown .chatarea .data': 'sendChat',		
+		'click .facecon' : 'addFaceIcon'
 	},
 
 	initialize: function (d) {
@@ -53,7 +54,6 @@ var ContentView = Backbone.View.extend({
         this.listenTo(this.model, "change:shownewuser", this.showNewUser);
         this.listenTo(this.model, "change:userdisconnected", this.userDisconnected); 
         this.listenTo(this.model, "change:usernameliveexist", this.userNameLiveExist);         
-
 		this.render();
 	},
 
@@ -69,10 +69,10 @@ var ContentView = Backbone.View.extend({
 		chrome.storage.sync.get('username', _.bind(function(result) {			
 			if(result.username.swarm_username) {
 				
-				//this.loadUserNameForm();
+				this.loadUserNameForm();
 				
-				this.startChat(result.username.swarm_username);
-				PS.username = result.username.swarm_username;
+				//this.startChat(result.username.swarm_username);
+				//PS.username = result.username.swarm_username;
 			}else{
 				this.loadUserNameForm();
 			}
@@ -80,6 +80,20 @@ var ContentView = Backbone.View.extend({
 		}, this));
 
 
+	},
+
+	addFaceIcon: function (e) {
+		var target = $(e.currentTarget);
+		var classes = target.attr('class').split(' ');
+		for(classs in classes) {			
+			if(classes[classs].indexOf('icon-') != -1) {				
+				var icon = classes[classs].split('icon-')[1];
+				//needs to add at the location of the cursor.
+				//right now it just adds it to the end of the text
+				this.$el.find('.data').append('<img src="'+chrome.extension.getURL("/images/emotocons/"+icon+".png")+'" class="emotocon" width="16" />');
+				break;
+			}
+		}
 	},
 
 	loadUserNameForm: function() {
@@ -97,9 +111,18 @@ var ContentView = Backbone.View.extend({
 		var updatechat = this.model.toJSON().updatechat;
 		var date = new Date(updatechat.date);
 		updatechat.date = date.toString().split("GMT")[0].trim();
+		updatechat.message = updatechat.message.replace(/&lt;/g, '<');
+		updatechat.message = updatechat.message.replace(/&#34;/g, '"');
+		updatechat.message = updatechat.message.replace(/&gt;/g, '>');
+		updatechat.message = updatechat.message.replace(/&amp;nbsp;/g, '');
 		this.$el.find('.conversation .empty_comments').remove();
-		this.$el.find('.conversation').prepend(ich.messagePostLeft(updatechat));
-
+		if(PS.username == updatechat.name) {
+			updatechat.name = updatechat.name.split('____')[1];
+			this.$el.find('.conversation').prepend(ich.messagePostLeft(updatechat));
+		}else{
+			updatechat.name = updatechat.name.split('____')[1];
+			this.$el.find('.conversation').prepend(ich.messagePostRight(updatechat));
+		}
 	},
 
 	showNewUser : function() {
@@ -127,16 +150,23 @@ var ContentView = Backbone.View.extend({
 
 		var data = getsavedchat.data;
 		var buildchat = [];
+
 		if(data.length > 0) {
 			for(d in data) {
 				var date = new Date(data[d].created);
 				createdDate = date.toString().split("GMT")[0].trim();	
 				data[d].date = createdDate;
 
+				var chat = data[d].chat;
+				chat = chat.replace(/&lt;/g, '<');
+				chat = chat.replace(/&#34;/g, '"');
+				chat = chat.replace(/&gt;/g, '>');
+				chat = chat.replace(/&amp;nbsp;/g, '');
+
 				var da = { 
 					name : data[d].name.split('____')[1], 
 					date : createdDate.trim(), 
-					message : data[d].chat 
+					message : chat 
 				};
 
 				if(data[d].name == PS.username) {
@@ -156,10 +186,15 @@ var ContentView = Backbone.View.extend({
 		if(e.which == 13) {	
 			e.preventDefault();
 			var target = $(e.currentTarget);			
-			var message = target.val();
+			var message = target.html();
 
-			if(message != ""){
-				target.val("");
+			var replaceStr = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+	    	message = message.replace(replaceStr, '<a href="$1" target="_blank">$1</a>');
+			var replaceStr2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+    		message = message.replace(replaceStr2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+			if(message != "") {
+				target.html("");
 				PS.socket.emit('sendchat', message);
 			}
 		}

@@ -19,6 +19,7 @@
 
     "web_accessible_resources": [
         "css/fonts/*",
+        "images/emotocons/*.png",
         "images/*.png",
         "js/workers/test.js",
         "templates/*"

@@ -42,22 +42,27 @@ var chatArea = [
 	'<div class="chatarea">',	
 		'<div class="chat_wrapper">',												
 			'<div class="message">',
-				'<textarea rows="4" class="data"></textarea>',
+
+				//'<textarea rows="4" class="data"></textarea>',
+	
+				'<div class="data" contenteditable="true"></div>',
+
 				'<div class="facecons">',
-						'<div class="facecon icon-happy facecons_trigger"></div>',
-						'<div class="facecon icon-smiley"></div>',
-						'<div class="facecon icon-tongue"></div>',
-						'<div class="facecon icon-sad"></div>',
-						'<div class="facecon icon-wink"></div>',
-						'<div class="facecon icon-grin"></div>',
-						'<div class="facecon icon-cool"></div>',
-						'<div class="facecon icon-angry"></div>',
-						'<div class="facecon icon-evil"></div>',
-						'<div class="facecon icon-shocked"></div>',
-						'<div class="facecon icon-confused"></div>',
-						'<div class="facecon icon-neutral"></div>',												
-						'<div class="facecon icon-wondering"></div>',												
-					'</div>',			
+						'<img src="'+chrome.extension.getURL("/images/emotocons/happy.png")+'" class="facecon icon-happy" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/smiley.png")+'" class="facecon icon-smiley" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/happy.png")+'" class="facecon icon-tongue" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/tongue.png")+'" class="facecon icon-sad" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/wink.png")+'" class="facecon icon-wink" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/grin.png")+'" class="facecon icon-grin" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/cool.png")+'" class="facecon icon-cool" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/angry.png")+'" class="facecon icon-angry" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/evil.png")+'" class="facecon icon-evil" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/shocked.png")+'" class="facecon icon-shocked" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/confused.png")+'" class="facecon icon-confused" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/neutral.png")+'" class="facecon icon-neutral" width="16" />',												
+						'<img src="'+chrome.extension.getURL("/images/emotocons/wondering.png")+'" class="facecon icon-wondering" width="16" />',												
+					'</div>',	
+
 			'</div>',
 			'<div class="conversation_holder"><div class="conversation"><div class="spacer"></div></div></div>',
 			//'<img src="http://mysocket.so:8000/images/active_status.png"/>',
@@ -71,7 +76,7 @@ ich.addTemplate('chatArea', chatArea.join(''));
 var messagePostLeft = [
 	'<div class="message_post left">', 
 		'<p class="name"><strong>{{name}}</strong></p>',
-		'<p class="message_data"><span class="date">({{date}})</span></br><span>{{message}}</span></p>',
+		'<p class="message_data"><span class="date">({{date}})</span></br><span>{{{message}}}</span></p>',
 	'</div>'
 ];
 
@@ -80,7 +85,7 @@ ich.addTemplate('messagePostLeft', messagePostLeft.join(''));
 var messagePostRight = [
 	'<div class="message_post right">', 
 		'<p class="name"><strong>{{name}}</strong></p>',
-		'<p class="message_data"><span class="date">({{date}})</span></br><span>{{message}}</span></p>',
+		'<p class="message_data"><span class="date">({{date}})</span></br><span>{{{message}}}</span></p>',
 	'</div>'
 ];
 
