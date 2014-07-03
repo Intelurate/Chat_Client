@@ -60,7 +60,7 @@ var DiscView = Backbone.View.extend({
 		PS.Views.ContentView  = new ContentView({
 			model : PS.Models.ContentModel
 		});	
-		this.$el.find('.page_swarm_left').append(PS.Views.ContentView.$el);	
+		this.$el.find('.page_swarm_left').append(PS.Views.ContentView.$el);
 
 
 	},

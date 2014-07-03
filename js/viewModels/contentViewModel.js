@@ -90,7 +90,10 @@ var ContentView = Backbone.View.extend({
 				var icon = classes[classs].split('icon-')[1];
 				//needs to add at the location of the cursor.
 				//right now it just adds it to the end of the text
-				this.$el.find('.data').append('<img src="'+chrome.extension.getURL("/images/emotocons/"+icon+".png")+'" class="emotocon" width="16" />');
+				this.$el.find('.data')
+					.append('<img src="'+chrome.extension.getURL("/images/emotocons/"+icon+".png")+'" class="emotocon" width="16" />')
+					.focus();
+				
 				break;
 			}
 		}

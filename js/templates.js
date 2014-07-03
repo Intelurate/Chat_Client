@@ -6,28 +6,21 @@ var domain = "http://localhost:8000/";
 var headerBar = [			
 		'<div class="ps_icons left">',
 			'<div class="ps_icon icon-export close_app" title="Minimizes Discussion"></div>',
-			//'<img src="'+chrome.extension.getURL("/images/page_swarm_icon.png")+'" width="30"/>',
 		'</div>',
-		/*
-		'<div class="logo_name"></div>',
-		'<div class="toggle">',
-			'<img class="plus_icon" src="'+chrome.extension.getURL("/images/plus_icon.png")+'" width="20"/>',
-			'<img class="minus_icon" src="'+chrome.extension.getURL("/images/minus_icon.png")+'" width="20"/>',
-		'</div>',
-		*/
 
 		'<div class="ps_icons right">',
-			'<div class="ps_icon icon-list"  title="Displays Menu"></div>',
+			'<div class="ps_icon icon-chrome"  title="Displays Menu"></div>',
 			'<div class="ps_icon icon-users users"  title="Availible Users Online"></div>',
 			//'<img src="'+chrome.extension.getURL("/images/page_swarm_users_icon.png")+'" width="30"/>',
 
 		'</div>',
 
-		'<div class="connections"><span class="connection_count"></span> <span class="connections_txt">connections</span></div>'
-
+		'<div class="bottom_header">',
+			'<div class="icon-info terms_of_use"></div>',
+			'<div class="connections"><span class="connection_count"></span> <span class="connections_txt">connections</span></div>',
+		'</div>'
 
 ];
-
 ich.addTemplate('headerBar', headerBar.join(''));
 
 var usernameForm = [
@@ -50,8 +43,8 @@ var chatArea = [
 				'<div class="facecons">',
 						'<img src="'+chrome.extension.getURL("/images/emotocons/happy.png")+'" class="facecon icon-happy" width="16" />',
 						'<img src="'+chrome.extension.getURL("/images/emotocons/smiley.png")+'" class="facecon icon-smiley" width="16" />',
-						'<img src="'+chrome.extension.getURL("/images/emotocons/happy.png")+'" class="facecon icon-tongue" width="16" />',
-						'<img src="'+chrome.extension.getURL("/images/emotocons/tongue.png")+'" class="facecon icon-sad" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/tongue.png")+'" class="facecon icon-tongue" width="16" />',
+						'<img src="'+chrome.extension.getURL("/images/emotocons/sad.png")+'" class="facecon icon-sad" width="16" />',
 						'<img src="'+chrome.extension.getURL("/images/emotocons/wink.png")+'" class="facecon icon-wink" width="16" />',
 						'<img src="'+chrome.extension.getURL("/images/emotocons/grin.png")+'" class="facecon icon-grin" width="16" />',
 						'<img src="'+chrome.extension.getURL("/images/emotocons/cool.png")+'" class="facecon icon-cool" width="16" />',

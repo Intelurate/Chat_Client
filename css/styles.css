@@ -6,9 +6,7 @@ body .page_swarm{
 	height: 100% !important;
 	z-index:9999999999999 !important;
 	font-family: verdana !important;
-
 	width: 0 !important;
-
 }
 
 body .page_swarm .page_swarm_tab{
@@ -43,6 +41,7 @@ body .page_swarm .page_swarm_tab .tab_icon{
 
 
 body .page_swarm .page_swarm_discussion{
+	overflow: hidden;
 	border-left: 1px solid #636363 !important;
 	background-color: #d2d2d2 !important;
 	position: fixed !important;
@@ -93,9 +92,10 @@ body .page_swarm .header_bar{
 	width:360px !important;
 	height: 35px !important;	
 	background-color: #f2cf39 !important;
-	overflow:hidden !important;
 	border-bottom: 3px solid #000000 !important;
 	float: left;
+	color: #000000 !important;
+	position: inherit;
 }
 
 body .page_swarm .header_bar .close_app{
@@ -110,7 +110,8 @@ body .page_swarm .header_bar .logo{
 }
 
 body .page_swarm .header_bar .ps_icons{
-	font-size: 22px !important;
+	font-size: 20px !important;
+	color: #000000 !important;
 }
 
 body .page_swarm .header_bar .ps_icons.left{
@@ -122,23 +123,60 @@ body .page_swarm .header_bar .ps_icons.right{
 
 body .page_swarm .header_bar .ps_icon{
 	float: left !important;
-	padding: 5px !important;
-	font-size: 22px !important
+	padding: 2px !important;
+	font-size: 20px !important;
+	color: #000000 !important;
+	margin:4px !important;
+	border: 1px solid #f2cf39;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+body .page_swarm .header_bar .ps_icon:hover{
+	border: 1px solid #333;
+	background-color: #f2cf39;
+   -moz-box-shadow:    inset 0 0 10px  rgba(50, 50, 50, 0.3);
+   -webkit-box-shadow: inset 0 0 10px  rgba(50, 50, 50, 0.3);
+   box-shadow:         inset 0 0 10px  rgba(50, 50, 50, 0.3);
 }
 
 body .page_swarm .header_bar .users{
 	float:right !important;
-	width:30px !important;
-	padding:6px !important;
-	cursor: pointer !important;	
+	cursor: pointer !important;
+	position: relative;
+}
+
+body .page_swarm .header_bar .bottom_header{
+	font-size: 10px !important;
+	position: absolute;
+	bottom: 0;
+	height: 17px;
+	border-top: 1px solid #000;
+	width: 360px;
+	z-index: 9999;
+	background-color: #f2cf39 !important;		
+}
+
+
+body .page_swarm .header_bar .bottom_header .terms_of_use{
+	float: left;
+	font-size: 14px;
+	margin: 2px;
+	cursor: pointer;
 }
 
 body .page_swarm .header_bar .connections{
-	float:right !important;
-	width:140px !important;
-	padding:10px !important;
-	font-size: 12px !important;
-	text-align: right !important;
+	padding:0px !important;
+	margin: 2px;
+	padding-right: 8px;
+	margin-right: 10px;
+	float: right;
+}
+
+body .page_swarm .header_bar .connections .connection_count{
+	color: #000000;
+	text-align: center; !important;	
 }
 
 body .page_swarm .page_swarm_contents{
@@ -206,7 +244,8 @@ body .page_swarm .page_swarm_contents .chatarea .chat_wrapper{
 body .page_swarm .page_swarm_contents .conversation_holder{
 	height: 100%;
 	overflow-y: scroll;
-	position: relative; 
+	position: relative;
+	margin-top: 10px; 
 }
 
 body .page_swarm .page_swarm_contents .conversation_holder .empty_comments{
@@ -251,6 +290,7 @@ body .page_swarm .page_swarm_contents .chatarea .facecon{
 	float: right;
 	padding: 3px;
 	margin: 0;
+	cursor: pointer;
 }
 
 
@@ -276,7 +316,7 @@ body .page_swarm .page_swarm_contents .chatarea .message .data{
 	background-color: #fff !important;
 	border: 1px solid #fff !important;
 	width: 100%;
-	height: 50px;
+	height: 70px;
 	outline: 0 !important;
 	resize: none;
 	text-align: left;
@@ -352,7 +392,7 @@ body .page_swarm .page_swarm_contents .chatarea .message_post.right p.message_da
 
 
 body .page_swarm .conversation_holder .conversation .spacer{
-	height: 180px !important;
+	height: 220px !important;
 	width: 100% !important;
 }
 
@@ -390,50 +430,86 @@ body .page_swarm .conversation_holder .conversation .spacer{
 }
 
 
-.icon-thumbs-up:before {
-	content: "\e601";
-}
-.icon-thumbs-up2:before {
-	content: "\e602";
-}
+
+
+
 .icon-happy:before {
 	content: "\e603";
+}
+.icon-happy2:before {
+	content: "\e601";
 }
 .icon-smiley:before {
 	content: "\e604";
 }
+.icon-smiley2:before {
+	content: "\e602";
+}
 .icon-tongue:before {
 	content: "\e605";
+}
+.icon-tongue2:before {
+	content: "\e618";
 }
 .icon-sad:before {
 	content: "\e606";
 }
+.icon-sad2:before {
+	content: "\e619";
+}
 .icon-wink:before {
 	content: "\e607";
+}
+.icon-wink2:before {
+	content: "\e61a";
 }
 .icon-grin:before {
 	content: "\e608";
 }
+.icon-grin2:before {
+	content: "\e61b";
+}
 .icon-cool:before {
 	content: "\e609";
+}
+.icon-cool2:before {
+	content: "\e61c";
 }
 .icon-angry:before {
 	content: "\e60a";
 }
+.icon-angry2:before {
+	content: "\e61d";
+}
 .icon-evil:before {
 	content: "\e60b";
+}
+.icon-evil2:before {
+	content: "\e61e";
 }
 .icon-shocked:before {
 	content: "\e60c";
 }
+.icon-shocked2:before {
+	content: "\e61f";
+}
 .icon-confused:before {
 	content: "\e60d";
+}
+.icon-confused2:before {
+	content: "\e620";
 }
 .icon-neutral:before {
 	content: "\e60e";
 }
+.icon-neutral2:before {
+	content: "\e621";
+}
 .icon-wondering:before {
 	content: "\e60f";
+}
+.icon-wondering2:before {
+	content: "\e622";
 }
 .icon-point-up:before {
 	content: "\e610";
@@ -473,6 +549,12 @@ body .page_swarm .conversation_holder .conversation .spacer{
 }
 .icon-key:before {
 	content: "\e600";
+}
+.icon-info:before {
+	content: "\e623";
+}
+.icon-help:before {
+	content: "\e624";
 }
 .icon-list:before {
 	content: "\e673";
