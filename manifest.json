@@ -4,7 +4,8 @@
     "version": "1.0",
     "permissions": [
         "tabs", "http://*/*", "https://*/*",
-        "storage"
+        "storage",
+        "identity"
     ],
     "background": {
         "scripts": ["js/md5.js", "js/background.js", "js/underscore.js"],
@@ -14,9 +15,7 @@
         "default_title": "Set this page's color.",
         "default_icon": "icon.png"
     },
-    //"content_security_policy": "default-src 'self' https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js",
     "manifest_version": 2,
-
     "web_accessible_resources": [
         "css/fonts/*",
         "images/emotocons/*.png",

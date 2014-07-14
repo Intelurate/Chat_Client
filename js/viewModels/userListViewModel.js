@@ -32,6 +32,7 @@ var UserListView = Backbone.View.extend({
 
 	initialize: function () {
 		this.render();
+		PS.socket.emit('getuserlist', { "room" : PS.room });
 	},
 
 	render: function () {
@@ -41,13 +42,13 @@ var UserListView = Backbone.View.extend({
 
 	showUsersList: function() {
 		var users = this.model.toJSON().showuserlist.users;
-		users = _.keys(users);
+			usersKeys = _.keys(users);
 		var userBuilder = [];
-		for(user in users) {
-			userBuilder.push( '<p>' + users[user].split('____')[1] + '</p>' );
+		for(userKey in usersKeys) {
+			userBuilder.push( '<p>' + users[usersKeys[userKey]].username + '</p>' );
 		}
 
-		this.$el.find('.user_list').append(userBuilder.join(''));
+		this.$el.find('.user_list').empty().append(userBuilder.join(''));
 
 	},
 
@@ -65,7 +66,6 @@ var UserListView = Backbone.View.extend({
 			'width' : '120px'
 		}, 300, _.bind(function() {
 			this.userDisplayStatus = 'open';			
-			PS.socket.emit('getuserlist', { "room" : PS.room });
 		}, this));
 	},
 

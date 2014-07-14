@@ -1,3 +1,4 @@
+
 body .page_swarm{
 	position: fixed; !important;
 	top:0 !important;
@@ -9,6 +10,10 @@ body .page_swarm{
 	width: 0 !important;
 }
 
+body .page_swarm{
+	color: #000;
+}
+
 body .page_swarm .page_swarm_tab{
 	border: 4px solid black !important;
 	border-right: 0px !important;
@@ -17,11 +22,10 @@ body .page_swarm .page_swarm_tab{
 	top: 40% !important;
 	right: -70px;
 	cursor: pointer !important;
-	width: 38px !important;
-	height: 46px !important;
+	width: auto !important;
+	height: auto !important;
 	z-index:99999 !important;
 	padding: 6px !important;
-	padding-right: 4px !important;
 	-webkit-border-top-left-radius: 8px !important;
 	-webkit-border-bottom-left-radius: 8px !important;
 	-moz-border-radius-topleft: 8px !important;
@@ -36,6 +40,8 @@ body .page_swarm .page_swarm_tab{
 body .page_swarm .page_swarm_tab .tab_icon{
 	width: 38px !important;
 	height: 46px !important;
+	padding: 0 !important;
+	margin: 0 !important;
 	background-repeat: no-repeat !important;
 }
 
@@ -52,11 +58,11 @@ body .page_swarm .page_swarm_discussion{
 	-webkit-box-shadow: -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;
 	-moz-box-shadow:    -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;
 	box-shadow:         -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;
-
+	background-image : url('chrome-extension://__MSG_@@extension_id__/images/honey_comb.png');
 }
 
 body .page_swarm .page_swarm_discussion .page_swarm_left{
-	width: 360px !important;
+	width: 400px !important;
 	float: left !important;
 	height: 100%;
 	overflow: hidden; 	
@@ -89,7 +95,7 @@ body .page_swarm .page_swarm_discussion .page_swarm_user_list .user_list p{
 }
 
 body .page_swarm .header_bar{						
-	width:360px !important;
+	width:400px !important;
 	height: 35px !important;	
 	background-color: #f2cf39 !important;
 	border-bottom: 3px solid #000000 !important;
@@ -153,7 +159,7 @@ body .page_swarm .header_bar .bottom_header{
 	bottom: 0;
 	height: 17px;
 	border-top: 1px solid #000;
-	width: 360px;
+	width: 400px;
 	z-index: 9999;
 	background-color: #f2cf39 !important;		
 }
@@ -181,7 +187,7 @@ body .page_swarm .header_bar .connections .connection_count{
 
 body .page_swarm .page_swarm_contents{
 	float:left !important;
-	width:360px !important;
+	width:400px !important;
 	font-size: 12px !important;
 	height: 100% !important;
 }
@@ -245,7 +251,7 @@ body .page_swarm .page_swarm_contents .conversation_holder{
 	height: 100%;
 	overflow-y: scroll;
 	position: relative;
-	margin-top: 10px; 
+	margin-top: 10px;
 }
 
 body .page_swarm .page_swarm_contents .conversation_holder .empty_comments{
@@ -361,7 +367,7 @@ body .page_swarm .page_swarm_contents .chatarea .message_post.left p.message_dat
 	float: right !important;
 	padding: 4px !important;
 	margin: 0 !important;
-	width: 250px !important;
+	width: 290px !important;
 	background-color: #ffffff !important;
 	-webkit-border-radius: 4px !important;
 	-moz-border-radius: 4px !important;
@@ -382,7 +388,7 @@ body .page_swarm .page_swarm_contents .chatarea .message_post.right p.message_da
 	float: left !important;
 	padding: 4px !important;
 	margin: 0 !important;
-	width: 250px !important;
+	width: 290px !important;
 	background-color: #ffffff !important;
 	-webkit-border-radius: 4px !important;
 	-moz-border-radius: 4px !important;
@@ -390,175 +396,11 @@ body .page_swarm .page_swarm_contents .chatarea .message_post.right p.message_da
 	margin-left: 8px !important;
 }
 
-
 body .page_swarm .conversation_holder .conversation .spacer{
-	height: 220px !important;
+	height: 200px !important;
 	width: 100% !important;
 }
 
 
 
 
-
-
-/* //////////////////////////////////////////////////////////////// */
-
-
-@font-face {
-	font-family: 'icomoon';
-	src:url('chrome-extension://imppjfmjiccjpaoahfeamcgdmplcflfn/css/fonts/icomoon.eot?k5585u');
-	src:url('chrome-extension://imppjfmjiccjpaoahfeamcgdmplcflfn/css/fonts/icomoon.eot?#iefixk5585u') format('embedded-opentype'),
-		url('chrome-extension://imppjfmjiccjpaoahfeamcgdmplcflfn/css/fonts/icomoon.woff?k5585u') format('woff'),
-		url('chrome-extension://imppjfmjiccjpaoahfeamcgdmplcflfn/css/fonts/icomoon.ttf?k5585u') format('truetype'),
-		url('chrome-extension://imppjfmjiccjpaoahfeamcgdmplcflfn/css/fonts/icomoon.svg?k5585u#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-[class^="icon-"], [class*=" icon-"] {
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-
-
-
-
-.icon-happy:before {
-	content: "\e603";
-}
-.icon-happy2:before {
-	content: "\e601";
-}
-.icon-smiley:before {
-	content: "\e604";
-}
-.icon-smiley2:before {
-	content: "\e602";
-}
-.icon-tongue:before {
-	content: "\e605";
-}
-.icon-tongue2:before {
-	content: "\e618";
-}
-.icon-sad:before {
-	content: "\e606";
-}
-.icon-sad2:before {
-	content: "\e619";
-}
-.icon-wink:before {
-	content: "\e607";
-}
-.icon-wink2:before {
-	content: "\e61a";
-}
-.icon-grin:before {
-	content: "\e608";
-}
-.icon-grin2:before {
-	content: "\e61b";
-}
-.icon-cool:before {
-	content: "\e609";
-}
-.icon-cool2:before {
-	content: "\e61c";
-}
-.icon-angry:before {
-	content: "\e60a";
-}
-.icon-angry2:before {
-	content: "\e61d";
-}
-.icon-evil:before {
-	content: "\e60b";
-}
-.icon-evil2:before {
-	content: "\e61e";
-}
-.icon-shocked:before {
-	content: "\e60c";
-}
-.icon-shocked2:before {
-	content: "\e61f";
-}
-.icon-confused:before {
-	content: "\e60d";
-}
-.icon-confused2:before {
-	content: "\e620";
-}
-.icon-neutral:before {
-	content: "\e60e";
-}
-.icon-neutral2:before {
-	content: "\e621";
-}
-.icon-wondering:before {
-	content: "\e60f";
-}
-.icon-wondering2:before {
-	content: "\e622";
-}
-.icon-point-up:before {
-	content: "\e610";
-}
-.icon-point-right:before {
-	content: "\e611";
-}
-.icon-point-down:before {
-	content: "\e612";
-}
-.icon-point-left:before {
-	content: "\e613";
-}
-.icon-checkmark-circle:before {
-	content: "\e614";
-}
-.icon-chrome:before {
-	content: "\e615";
-}
-.icon-reply:before {
-	content: "\e616";
-}
-.icon-forward:before {
-	content: "\e617";
-}
-.icon-user:before {
-	content: "\e66f";
-}
-.icon-users:before {
-	content: "\e670";
-}
-.icon-user-add:before {
-	content: "\e671";
-}
-.icon-export:before {
-	content: "\e672";
-}
-.icon-key:before {
-	content: "\e600";
-}
-.icon-info:before {
-	content: "\e623";
-}
-.icon-help:before {
-	content: "\e624";
-}
-.icon-list:before {
-	content: "\e673";
-}
-.icon-list2:before {
-	content: "\e674";
-}

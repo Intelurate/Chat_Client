@@ -5,9 +5,11 @@
 	var PS = {
 		Views : {},
 		Models : {},
-		socket : io.connect('ws://localhost:8000/'),
+		socket : io.connect('ws://localhost:8888/'),
+		//socket : io.connect('ws://app.pageswarm.com/'),
 		room : MD5(url[0])
 	};
+
 
 	//window.socketX = io.connect('ws://flock.ethamatics.com/');
 	//window.socketX = io.connect('ws://localhost:8000/');

@@ -3,8 +3,8 @@ $(function() {
 	//var domain = "http://flock.ethamatics.com/";
 	//var socket = io.connect('ws://flock.ethamatics.com/');
 
-	var domain = "http://localhost:8000/";
-	var socket = io.connect('ws://localhost:8000/');
+	//var domain = "http://localhost:8000/";
+	var socket = io.connect('ws://app.pageswarm.com/');
 
 	var searchRecords = $('body').find('li.g');
 	var urls = [];

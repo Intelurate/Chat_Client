@@ -46,8 +46,8 @@ var loadAppFiles = function(tabId, scripts, callBack) {
 
 window.tabObjs = {};
 
-/*
 
+/*
 chrome.browserAction.onClicked.addListener(function(tab) {
 
 	var tabHashed = "__"+MD5(tab.id.toString())+"__";
@@ -110,7 +110,6 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 	}
 });
-
 */
 
 
@@ -136,6 +135,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 		}
 	}
 
+	console.log(tab);
+
 	if(onGoogle == false) {
 
 		var tabHashed = "__"+MD5(tab.id.toString())+"__";
@@ -159,8 +160,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 					if(response) {							
 						if(response.exist == false) {							
 							loadAppFiles(tab.id, [
-								'css/styles.css', 
-								'js/jquery.js', 
+								'css/styles.css',
+								'css/fonts.css',  
+								'js/jquery.js',
 								'js/underscore.js', 
 								'js/backbone.js', 
 								'js/icanhaz.js', 
@@ -199,12 +201,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 				if(hashExist != -1) {
 					var hash1 = tabObjs[tabHashed].url.split("#")[1]; 
 					var hash2 = tab.url.split("#")[1];
-					
 					if(hash1 == hash2) {
-						console.log('sweet')
 						delete tabObjs[tabHashed];
 					}else{
-						console.log('neeat')
 						tabObjs[tabHashed].url = tab.url;
 					}
 				}else{

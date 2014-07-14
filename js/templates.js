@@ -1,22 +1,17 @@
-//var domain = "http://flock.ethamatics.com/";
-var domain = "http://localhost:8000/";
-
-//console.log(chrome);
-
 var headerBar = [			
 		'<div class="ps_icons left">',
-			'<div class="ps_icon icon-export close_app" title="Minimizes Discussion"></div>',
+			'<div class="ps_icon ps-icon-export close_app" title="Minimizes Discussion"></div>',
 		'</div>',
 
 		'<div class="ps_icons right">',
-			'<div class="ps_icon icon-chrome"  title="Displays Menu"></div>',
-			'<div class="ps_icon icon-users users"  title="Availible Users Online"></div>',
+			'<div class="ps_icon ps-icon-user-add add_user"  title="Displays Menu"></div>',
+			'<div class="ps_icon ps-icon-users users"  title="Availible Users Online"></div>',
 			//'<img src="'+chrome.extension.getURL("/images/page_swarm_users_icon.png")+'" width="30"/>',
 
 		'</div>',
 
 		'<div class="bottom_header">',
-			'<div class="icon-info terms_of_use"></div>',
+			'<div class="ps-icon-info terms_of_use"></div>',
 			'<div class="connections"><span class="connection_count"></span> <span class="connections_txt">connections</span></div>',
 		'</div>'
 
@@ -25,7 +20,7 @@ ich.addTemplate('headerBar', headerBar.join(''));
 
 var usernameForm = [
 	'<div class="usernameForm">',
-		'<p>Enter a Username</p>',
+		'<p>Enter your Nickname</p>',
 		'<input class="username" type="text" />',
 	'</div>'
 ];
@@ -67,8 +62,8 @@ ich.addTemplate('chatArea', chatArea.join(''));
 
 
 var messagePostLeft = [
-	'<div class="message_post left">', 
-		'<p class="name"><strong>{{name}}</strong></p>',
+	'<div id="{{id}}" class="message_post left">', 
+		'<p class="name"><strong>{{username}}</strong></p>',
 		'<p class="message_data"><span class="date">({{date}})</span></br><span>{{{message}}}</span></p>',
 	'</div>'
 ];
@@ -76,8 +71,8 @@ var messagePostLeft = [
 ich.addTemplate('messagePostLeft', messagePostLeft.join(''));
 
 var messagePostRight = [
-	'<div class="message_post right">', 
-		'<p class="name"><strong>{{name}}</strong></p>',
+	'<div id="{{id}}" class="message_post right">', 
+		'<p class="name"><strong>{{username}}</strong></p>',
 		'<p class="message_data"><span class="date">({{date}})</span></br><span>{{{message}}}</span></p>',
 	'</div>'
 ];

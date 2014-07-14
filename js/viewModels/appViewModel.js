@@ -30,12 +30,10 @@ var AppView = Backbone.View.extend({
 	
 	appEnter: function(e) {
 		e.stopPropagation();
-		//$('html, body').css({'overflow' : 'hidden'}); 
 	},
 
 	appLeave: function(e) {
 		e.stopPropagation();
-		//$('html, body').css({'overflow' : ''}); 
 	},
 
 	render: function () {
@@ -50,7 +48,6 @@ var AppView = Backbone.View.extend({
 		});		
 		this.$el.append(PS.Views.TabView.$el);		
 		this.$el.append(PS.Views.DiscView.$el);
-
 
 		//chrome.storage.sync.remove('appStatus', _.bind(function(result) {}));
 
@@ -77,77 +74,9 @@ var AppView = Backbone.View.extend({
 
 		},this));
 
-
-
-		//this.tabView = new TabView({
-		//	model : new ContentModel(),
-		//	parent : this			
-		//});		
-
-		/*
-		this.contentView = new ContentView({
-			model : new ContentModel(),
-			parent : this			
-		});		
-
-		this.headerView = new HeaderView({
-			model : new HeaderModel(),
-			parent : this
-		});
-
-		this.$el.show();
-
-		this.$el.append(this.headerView.$el);				
-		this.$el.append(this.contentView.$el);
-		*/
-
 	},
-/*
-	displayApp : function(e) {
-		this.animateOut();
-	},
-	
-	appLeave : function(e) {
-		this.animateIn();
-	},
-
-	animateOut : function() {
-		this.$el.stop();
-		this.$el.animate({
-			'right' : '0'
-		}, 300, function() {
-			// Animation complete.
-		});
-	},
-
-	animateIn : function() {
-		lockStatus = this.headerView.getAppLockStatus();
-		if(lockStatus == false) {
-			this.$el.stop();
-			this.$el.animate({
-				'right' : '-350px'
-			}, 300, function() {
-				// Animation complete.
-			});			
-		}
-	},
-
-	appClick : function(e) {
-		e.stopPropagation();
-	},
-	*/
-
-
 
 	reRender : function() {
-		/*
-		var url = document.URL.split('#');
-		window.room = url[0];
-		window.room = MD5(room);
-		this.contentView.emptyChatBox();
-		this.headerView.model.toJSON().showcurrentconnections.usersCount = "";
-		window.socketX.emit('changeconnection', { "room" : window.room });
-		*/
 
 	},
 

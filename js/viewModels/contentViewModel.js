@@ -1,5 +1,5 @@
 
-
+//username
 var ContentModel = Backbone.Model.extend({
 
 	initialize: function () {
@@ -8,24 +8,32 @@ var ContentModel = Backbone.Model.extend({
 
 	fetch : function() {
 
-		PS.socket.on('showyourconnected', _.bind(function (username, users) {	
-			this.set({ 'showyourconnected' : { 'users' : users, 'username' : username } });
+		PS.socket.on('showyourconnected', _.bind(function (user, users) {	
+			this.set({ 'showyourconnected' : { 'user' : user, 'users' : users } });
 		}, this));
 
-		PS.socket.on('updatechat', _.bind(function (username, created, data) {
-			this.set({'updatechat' : {'name' : username, 'date' : created, 'message' : data } });			
+		PS.socket.on('updatechat', _.bind(function (user, data) {
+			this.set({'updatechat' : {'user' : user, 'data' : data } });			
 		}, this));
 
-		PS.socket.on('getsavedchat', _.bind(function (username, data, room) {
-			this.set({ 'getsavedchat' : { 'username' : username, 'data' : data, 'room' : room }});
+		PS.socket.on('getsavedchat', _.bind(function (user, data, room) {
+			this.set({ 'getsavedchat' : { 'user' : user, 'data' : data, 'room' : room }});
 		}, this));
 
-		PS.socket.on('shownewuser', _.bind(function (username, users) {
-			this.set({ 'shownewuser' : { 'username' : username, 'users' : users }});
+		PS.socket.on('shownewuser', _.bind(function (user, users) {
+			this.set({ 'shownewuser' : { 'user' : user, 'users' : users }});
 		}, this));
 
-		PS.socket.on('userdisconnected', _.bind(function (username, users) {
-			this.set({ 'userdisconnected' : { 'username' : username, 'users' : users }});
+		PS.socket.on('userdisconnected', _.bind(function (user, users) {
+			this.set({ 'userdisconnected' : { 'user' : user, 'users' : users }});
+		}, this));
+
+		PS.socket.on('userchanged', _.bind(function (user, users) {
+			this.set({ 'userchanged' : { 'user' : user, 'users' : users }});
+		}, this));
+
+		PS.socket.on('getpaging', _.bind(function (user, data, room) {
+			this.set({ 'getpaging' : { 'user' : user, 'data' : data, 'room' : room }});
 		}, this));
 
 		PS.socket.on('usernameliveexist', _.bind(function (status) {
@@ -35,8 +43,6 @@ var ContentModel = Backbone.Model.extend({
 	}
 });
 
-
-
 var ContentView = Backbone.View.extend({
 	
 	className : 'page_swarm_contents',
@@ -44,8 +50,15 @@ var ContentView = Backbone.View.extend({
 	events: {
 		'keydown .usernameForm .username': 'chatStart',
 		'keydown .chatarea .data': 'sendChat',		
-		'click .facecon' : 'addFaceIcon'
+		'click .facecon' : 'addFaceIcon',
+		'scroll' : 'scrolling'
 	},
+
+	page : 0,
+
+	added : 0,
+	
+	loadingPage : false,
 
 	initialize: function (d) {
         this.listenTo(this.model, "change:showyourconnected", this.showYourConnected);
@@ -53,6 +66,8 @@ var ContentView = Backbone.View.extend({
         this.listenTo(this.model, "change:getsavedchat", this.getSavedChat);
         this.listenTo(this.model, "change:shownewuser", this.showNewUser);
         this.listenTo(this.model, "change:userdisconnected", this.userDisconnected); 
+        this.listenTo(this.model, "change:userchanged", this.userChanged); 
+        this.listenTo(this.model, "change:getpaging", this.getPaging); 
         this.listenTo(this.model, "change:usernameliveexist", this.userNameLiveExist);         
 		this.render();
 	},
@@ -66,23 +81,26 @@ var ContentView = Backbone.View.extend({
 
 		this.$el.append(PS.Views.StatusView.$el);	
 
-		chrome.storage.sync.get('username', _.bind(function(result) {			
-			if(result.username.swarm_username) {
-				
-				this.loadUserNameForm();
-				
-				//this.startChat(result.username.swarm_username);
-				//PS.username = result.username.swarm_username;
+		chrome.storage.sync.get('user', _.bind(function(result) {
+			if(result.user) {
+				if(result.user.username) {
+					this.startChat(result.user);
+					PS.user = result.user;
+				}else{
+					this.loadUserNameForm();
+				}
 			}else{
 				this.loadUserNameForm();
 			}
-
 		}, this));
+	},
 
-
+	createNewUser: function() {
+		this.loadUserNameForm();
 	},
 
 	addFaceIcon: function (e) {
+
 		var target = $(e.currentTarget);
 		var classes = target.attr('class').split(' ');
 		for(classs in classes) {			
@@ -90,8 +108,9 @@ var ContentView = Backbone.View.extend({
 				var icon = classes[classs].split('icon-')[1];
 				//needs to add at the location of the cursor.
 				//right now it just adds it to the end of the text
-				this.$el.find('.data')
-					.append('<img src="'+chrome.extension.getURL("/images/emotocons/"+icon+".png")+'" class="emotocon" width="16" />')
+				
+				var d = this.$el.find('.data');
+				d.append('<img src="'+chrome.extension.getURL("/images/emotocons/"+icon+".png")+'" class="emotocon" width="16" />')
 					.focus();
 				
 				break;
@@ -100,6 +119,8 @@ var ContentView = Backbone.View.extend({
 	},
 
 	loadUserNameForm: function() {
+		this.$el.find('.chatarea').remove();
+		this.$el.find('.usernameForm').remove();
 		this.$el.append(ich.usernameForm());
 	},
 
@@ -110,36 +131,91 @@ var ContentView = Backbone.View.extend({
 		}
 	},
 
-	updateChat : function() {
-		var updatechat = this.model.toJSON().updatechat;
-		var date = new Date(updatechat.date);
-		updatechat.date = date.toString().split("GMT")[0].trim();
-		updatechat.message = updatechat.message.replace(/&lt;/g, '<');
-		updatechat.message = updatechat.message.replace(/&#34;/g, '"');
-		updatechat.message = updatechat.message.replace(/&gt;/g, '>');
-		updatechat.message = updatechat.message.replace(/&amp;nbsp;/g, '');
-		this.$el.find('.conversation .empty_comments').remove();
-		if(PS.username == updatechat.name) {
-			updatechat.name = updatechat.name.split('____')[1];
-			this.$el.find('.conversation').prepend(ich.messagePostLeft(updatechat));
-		}else{
-			updatechat.name = updatechat.name.split('____')[1];
-			this.$el.find('.conversation').prepend(ich.messagePostRight(updatechat));
+	getPaging : function() {
+
+		var conv = this.$el.find('.spacer');
+		var getpaging = this.model.toJSON().getpaging;
+		var data = getpaging.data;
+		var buildchat = [];
+
+		if(data.length > 0) {
+			for(d in data) {
+				var date = new Date(data[d].created);
+				createdDate = date.toString().split("GMT")[0].trim();	
+				data[d].date = createdDate;
+
+				var chat = data[d].chat;
+				chat = chat.replace(/&lt;/g, '<');
+				chat = chat.replace(/&#34;/g, '"');
+				chat = chat.replace(/&gt;/g, '>');
+				chat = chat.replace(/&amp;nbsp;/g, '');
+
+				var da = { 
+					id : data[d]._id,
+					username : data[d].username, 
+					date : createdDate.trim(), 
+					message : chat 
+				};
+
+				if(data[d].token == PS.user.token) {
+					buildchat.push(ich.messagePostLeft(da));
+				}else{
+					buildchat.push(ich.messagePostRight(da));
+				}
+			}
+			conv.before(buildchat);
+			this.loadingPage = false;
 		}
+	},
+
+	updateChat : function() {
+
+		var updatechat = this.model.toJSON().updatechat;
+		var createdDate = new Date(updatechat.data.created);
+
+		updatechat.data.chat = updatechat.data.chat.replace(/&lt;/g, '<');
+		updatechat.data.chat = updatechat.data.chat.replace(/&#34;/g, '"');
+		updatechat.data.chat = updatechat.data.chat.replace(/&gt;/g, '>');
+		updatechat.data.chat = updatechat.data.chat.replace(/&amp;nbsp;/g, '');
+
+		var da = { 
+			id : updatechat.data._id,
+			username : updatechat.data.username, 
+			date : createdDate, 
+			message : updatechat.data.chat
+		};
+
+		this.$el.find('.conversation .empty_comments').remove();
+
+		if(PS.user.username == updatechat.user.username && PS.user.token == updatechat.user.token) {			
+			updatechat.username = updatechat.user.username;
+			this.$el.find('.conversation').prepend(ich.messagePostLeft(da));
+		}else{
+			updatechat.username = updatechat.user.username;
+			this.$el.find('.conversation').prepend(ich.messagePostRight(da));
+		}
+
+		this.added = (this.added+1);
 	},
 
 	showNewUser : function() {
 		var shownewuser = this.model.toJSON().shownewuser;
 		PS.Views.HeaderView.$el.find('.connections .connection_count').text(shownewuser.users.count);
-		PS.Views.StatusView.updateStatus(shownewuser.username.split('____')[1] + " has entered the discussion...");
+		PS.Views.StatusView.updateStatus(shownewuser.user.username + " has entered the discussion...");
 	},
 
 	userDisconnected : function() {
 		var userdisconnected = this.model.toJSON().userdisconnected;
 		PS.Views.HeaderView.$el.find('.connections .connection_count').text(userdisconnected.users.count);
-		PS.Views.StatusView.updateStatus(userdisconnected.username.split('____')[1] + " has left the discussion...");
+		PS.Views.StatusView.updateStatus(userdisconnected.user.username + " has left the discussion...");
 	},
 
+	userChanged : function() {
+		var userchanged = this.model.toJSON().userchanged;
+		PS.Views.HeaderView.$el.find('.connections .connection_count').text(userchanged.users.count);
+		PS.Views.StatusView.updateStatus("Your user have been disconnected from the discussion...");
+		this.createNewUser();
+	},
 
 	emptyChatBox : function() {
 		this.$el.empty();
@@ -148,7 +224,8 @@ var ContentView = Backbone.View.extend({
 
 	getSavedChat : function() {
 
-		var conv = this.$el.find('.conversation');			
+		var conv = this.$el.find('.conversation');
+		
 		var getsavedchat = this.model.toJSON().getsavedchat;
 
 		var data = getsavedchat.data;
@@ -167,18 +244,20 @@ var ContentView = Backbone.View.extend({
 				chat = chat.replace(/&amp;nbsp;/g, '');
 
 				var da = { 
-					name : data[d].name.split('____')[1], 
+					id : data[d]._id,
+					username : data[d].username, 
 					date : createdDate.trim(), 
 					message : chat 
 				};
 
-				if(data[d].name == PS.username) {
+				if(data[d].token == PS.user.token) {
 					buildchat.push(ich.messagePostLeft(da));
 				}else{
 					buildchat.push(ich.messagePostRight(da));
 				}
 			}
 			conv.prepend(buildchat);
+			this.page = (this.page+1);
 		} else{
 			buildchat.push('<p class="empty_comments">Be the first to comment on this page.</p>');
 			conv.prepend(buildchat.join(''));
@@ -186,6 +265,7 @@ var ContentView = Backbone.View.extend({
 	},
 
 	sendChat : function(e) {
+		e.stopPropagation();
 		if(e.which == 13) {	
 			e.preventDefault();
 			var target = $(e.currentTarget);			
@@ -203,14 +283,34 @@ var ContentView = Backbone.View.extend({
 		}
 	},
 
+	loadPage : function() {
+		var url = document.URL.split('#');
+		var room = url[0];
+			room = MD5(room);
+		this.page = (this.page+1);
+		var paging = { page : this.page, skipped : this.added };
+		PS.socket.emit('setpaging', { paging : paging });
+	},
+
 	showYourConnected : function() {
 		var userCount = this.model.toJSON().showyourconnected.users.count;
-		var username = this.model.toJSON().showyourconnected.username;
+		var username = this.model.toJSON().showyourconnected.user.username;
 		PS.Views.HeaderView.$el.find('.connections .connection_count').text(userCount);
-		username = username.split('____')[1];
-		PS.Views.StatusView.updateStatus("You " + username + " are now connected to the discussion...");
+		PS.Views.StatusView.updateStatus("You " + username + " are now connected to the page discussion...");
 		this.$el.find('.usernameForm').remove();
 		this.$el.append(ich.chatArea());
+
+		this.$el.find('.conversation_holder').scroll(_.bind(function (e) {
+			var target = $(e.target);
+			if(this.loadingPage == false) {
+				if((target.scrollTop() + $('.conversation_holder').height()) == 
+					$('.conversation_holder').prop('scrollHeight') ) {
+					this.loadingPage = true;
+					this.loadPage();
+				}
+			}
+
+		}, this));		
 	},
 
 	updateUserStatus : function() {
@@ -218,27 +318,29 @@ var ContentView = Backbone.View.extend({
 	},
 
 	chatStart : function(e) {
+
 		if(e.which == 13) {
 
 			var username = $('.username').val();
-
 			var date = new Date();
-			username = MD5(date.getTime()+username) + '____' + username; 
-			chrome.storage.sync.set({'username': { "swarm_username" : username } }, _.bind(function() {
-				PS.username = username;
-				this.startChat(username);
+			var token = MD5(date.getTime()+username); 			
+			var user = { "username" : username, token : token };
+
+			chrome.storage.sync.set({ 'user': user }, _.bind(function() {
+				PS.user = user;
+				this.startChat(PS.user);
 			}, this));
 
 			//chrome.storage.sync.set({'chatAppUsername' : username });			
-			//this.startChat(username);
+			//this.startChat(username);			
 		}
 	},
 
-	startChat : function(username) {
+	startChat : function(user) {
 		var url = document.URL.split('#');
 		var room = url[0];
 		room = MD5(room);
-		PS.socket.emit('adduser', { "username" : username, "room" : room });			
+		PS.socket.emit('adduser', { "user" : user, "room" : room });			
 	},
 
 	destroy : function() {
