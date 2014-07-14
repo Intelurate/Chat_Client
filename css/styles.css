@@ -373,6 +373,7 @@ body .page_swarm .page_swarm_contents .chatarea .message_post.left p.message_dat
 	-moz-border-radius: 4px !important;
 	border-radius: 4px !important;		
 	margin-right: 8px !important;
+	text-align: left;
 }
 
 body .page_swarm .page_swarm_contents .chatarea .message_post.right{
@@ -394,13 +395,10 @@ body .page_swarm .page_swarm_contents .chatarea .message_post.right p.message_da
 	-moz-border-radius: 4px !important;
 	border-radius: 4px !important;		
 	margin-left: 8px !important;
+	text-align: left;
 }
 
 body .page_swarm .conversation_holder .conversation .spacer{
 	height: 200px !important;
 	width: 100% !important;
 }
-
-
-
-

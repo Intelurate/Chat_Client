@@ -12,7 +12,7 @@ var headerBar = [
 
 		'<div class="bottom_header">',
 			'<div class="ps-icon-info terms_of_use"></div>',
-			'<div class="connections"><span class="connection_count"></span> <span class="connections_txt">connections</span></div>',
+			'<div class="connections"><span></span><span class="connection_count"></span> <span class="connections_txt">connections...  beta 1.0.1</span></div>',
 		'</div>'
 
 ];

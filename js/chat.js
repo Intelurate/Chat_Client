@@ -5,8 +5,8 @@
 	var PS = {
 		Views : {},
 		Models : {},
-		socket : io.connect('ws://localhost:8888/'),
-		//socket : io.connect('ws://app.pageswarm.com/'),
+		//socket : io.connect('ws://localhost:8888/'),
+		socket : io.connect('ws://app.pageswarm.com/'),
 		room : MD5(url[0])
 	};
 

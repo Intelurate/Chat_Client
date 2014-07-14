@@ -20,8 +20,8 @@ var TabView = Backbone.View.extend({
 	className : 'page_swarm_tab',
 
 	events: {
-		//'mousedown' : 'moveTab',
-		//'mouseup' : 'placeTab',
+		'mouseenter' : 'tabOver',
+		'mouseleave' : 'tabOut',
 		'click' : 'openPageSwarm'
 	},
 
@@ -29,6 +29,14 @@ var TabView = Backbone.View.extend({
 
 	initialize: function () {
 		this.render();
+	},
+
+	tabOver: function() {
+		PS.Views.DiscView.onFocus = true;
+	},
+
+	tabOut: function() {
+		PS.Views.DiscView.onFocus = false;
 	},
 
 	render: function () {
