@@ -249,7 +249,10 @@ body .page_swarm .page_swarm_contents .chatarea .chat_wrapper{
 
 body .page_swarm .page_swarm_contents .conversation_holder{
 	height: 100%;
-	overflow-y: scroll;
+	
+	/*overflow-y: scroll;*/
+	overflow: hidden;
+
 	position: relative;
 	margin-top: 10px;
 }

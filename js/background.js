@@ -161,7 +161,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 						if(response.exist == false) {							
 							loadAppFiles(tab.id, [
 								'css/styles.css',
-								'css/fonts.css',  
+								'css/fonts.css', 
+								'css/perfect-scrollbar.css', 
+
 								'js/jquery.js',
 								'js/underscore.js', 
 								'js/backbone.js', 
@@ -169,6 +171,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 								'js/socketio.js', 
 								'js/md5.js', 
 								'js/templates.js',
+								
+								'js/jquery.mousewheel.js',
+								'js/perfect-scrollbar.js',
 
 								'js/viewModels/appViewModel.js',
 								'js/viewModels/tabViewModel.js',

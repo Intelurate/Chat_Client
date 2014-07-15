@@ -299,11 +299,10 @@ var ContentView = Backbone.View.extend({
 		PS.Views.StatusView.updateStatus("You " + username + " are now connected to the page discussion...");
 		this.$el.find('.usernameForm').remove();
 		this.$el.append(ich.chatArea());
-
-		this.$el.find('.conversation_holder').scroll(_.bind(function (e) {
+		this.$el.find('.conversation_holder').perfectScrollbar().scroll(_.bind(function (e) {
 			var target = $(e.target);
 			if(this.loadingPage == false) {
-				if((target.scrollTop() + $('.conversation_holder').height()) == 
+				if((target.scrollTop() + this.$el.find('.conversation_holder').height()) == 
 					$('.conversation_holder').prop('scrollHeight') ) {
 					this.loadingPage = true;
 					this.loadPage();
