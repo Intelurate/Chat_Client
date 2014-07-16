@@ -4,7 +4,8 @@ var headerBar = [
 		'</div>',
 
 		'<div class="ps_icons right">',
-			'<div class="ps_icon ps-icon-user-add add_user"  title="Displays Menu"></div>',
+			'<div class="ps_icon ps-icon-cog settingsr"  title="Settings Menu"></div>',
+			'<div class="ps_icon ps-icon-vcard add_user"  title="Change User ID"></div>',
 			'<div class="ps_icon ps-icon-users users"  title="Availible Users Online"></div>',
 			//'<img src="'+chrome.extension.getURL("/images/page_swarm_users_icon.png")+'" width="30"/>',
 
@@ -21,7 +22,10 @@ ich.addTemplate('headerBar', headerBar.join(''));
 var usernameForm = [
 	'<div class="usernameForm">',
 		'<p>Enter your Nickname</p>',
-		'<input class="username" type="text" />',
+		'<div>',
+			'<input class="username" type="text" />',
+			'<div class="join_btn">Join Page<div/>',	
+		'</div>',	
 	'</div>'
 ];
 ich.addTemplate('usernameForm', usernameForm.join(''));

@@ -42,6 +42,7 @@ var AppView = Backbone.View.extend({
 		PS.Views.TabView  = new TabView({
 			model : PS.Models.TabModel
 		});
+
 		PS.Models.DiscModel = new DiscModel(); 
 		PS.Views.DiscView  = new DiscView({
 			model : PS.Models.DiscModel
@@ -49,9 +50,9 @@ var AppView = Backbone.View.extend({
 		this.$el.append(PS.Views.TabView.$el);		
 		this.$el.append(PS.Views.DiscView.$el);
 
-		//chrome.storage.sync.remove('appStatus', _.bind(function(result) {}));
+		//chrome.storage.local.remove('appStatus', _.bind(function(result) {}));
 
-		chrome.storage.sync.get('appStatus', _.bind(function(result) {
+		chrome.storage.local.get('appStatus', _.bind(function(result) {
 
 			if(result.appStatus) {
 				if(result.appStatus.status == 'close') {
@@ -74,6 +75,29 @@ var AppView = Backbone.View.extend({
 
 		},this));
 
+	},
+
+	checkUpdates: function() {
+
+		chrome.storage.local.get('appStatus', _.bind(function(result) {
+			if(result.appStatus) {
+				if(result.appStatus.status == 'open') {
+					PS.Views.DiscView.show();
+				}else if(result.appStatus.status == 'close') {
+					PS.Views.DiscView.hide();
+				}
+			}
+		}, this));
+
+		chrome.storage.local.get('user', _.bind(function(result) {
+			if(result.user) {
+				if(PS.user.token != result.user.token) {				
+					PS.user = result.user;
+					PS.socket.emit('changeconnection', { "room" : PS.room });
+					PS.Views.ContentView.startChat(PS.user);
+				}
+			}
+		}, this));
 	},
 
 	reRender : function() {

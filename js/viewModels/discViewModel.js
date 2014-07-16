@@ -96,7 +96,8 @@ var DiscView = Backbone.View.extend({
 			this.sliding = false;
 			this.appStatus = 'closed';
 			PS.Views.TabView.open();
-			chrome.storage.sync.set({'appStatus': { status : 'close' } }, function(){});	
+			chrome.runtime.sendMessage({'appStatus': { status : 'close' } }, function(){});
+			chrome.storage.local.set({'appStatus': { status : 'close' } }, function(){});	
 		}, this));	
 	},
 
@@ -108,8 +109,20 @@ var DiscView = Backbone.View.extend({
 		}, 300, _.bind(function() {
 			this.sliding = false;
 			this.appStatus = 'open';
-			chrome.storage.sync.set({'appStatus': { status : 'open' } }, function(){});		
+			chrome.runtime.sendMessage({'appStatus': { status : 'open' } }, function(){});
+			chrome.storage.local.set({'appStatus' : { status : 'open' } }, function(){});		
 		}, this));
+	},
+
+
+	hide: function() {
+		this.$el.css({'right':'-550px'});
+		PS.Views.TabView.show();	
+	},
+
+	show: function(){
+		this.$el.css({'right':'0'});
+		PS.Views.TabView.hide();	
 	},
 
 	destroy : function() {

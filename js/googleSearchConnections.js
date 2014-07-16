@@ -17,10 +17,13 @@ $(function() {
 	}
 
 	socket.emit('geturlconnections', urls);
-	socket.on('showurlconnections', function (urls) {
-		for(var a = 0; a<urls.length; a++) {
-			var googLink = $(searchRecords[a]);	
-			googLink.find('.rc h3').append('<div style="font-size:12px;width:50%;padding:3px;border:1px solid #999;">'+urls[a].count+' live connections <img src="'+chrome.extension.getURL("/images/active_status.png")+'"/></div>');
+	socket.on('showurlconnections', function (urls) {		
+		if($('body').attr('swarm') != 'searched') {
+			$('body').attr('swarm', 'searched');			
+			for(var a = 0; a<urls.length; a++) {
+				var googLink = $(searchRecords[a]);	
+				googLink.find('.rc h3').prepend('<div class="googleSearchStat"><img src="'+chrome.extension.getURL("/images/icon.png")+'" width="16" /><p>'+urls[a].count+'</p></div>');
+			}
 		}
 	});
 

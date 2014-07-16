@@ -49,6 +49,7 @@ var ContentView = Backbone.View.extend({
 
 	events: {
 		'keydown .usernameForm .username': 'chatStart',
+		'click .usernameForm .join_btn': 'chatStart',		
 		'keydown .chatarea .data': 'sendChat',		
 		'click .facecon' : 'addFaceIcon',
 		'scroll' : 'scrolling'
@@ -79,9 +80,8 @@ var ContentView = Backbone.View.extend({
 			model : PS.Models.StatusModel
 		});
 
-		this.$el.append(PS.Views.StatusView.$el);	
-
-		chrome.storage.sync.get('user', _.bind(function(result) {
+		this.$el.empty().append(PS.Views.StatusView.$el);	
+		chrome.storage.local.get('user', _.bind(function(result) {
 			if(result.user) {
 				if(result.user.username) {
 					this.startChat(result.user);
@@ -96,7 +96,7 @@ var ContentView = Backbone.View.extend({
 	},
 
 	createNewUser: function() {
-		this.loadUserNameForm();
+		this.loadUserNameForm();		
 	},
 
 	addFaceIcon: function (e) {
@@ -145,10 +145,7 @@ var ContentView = Backbone.View.extend({
 				data[d].date = createdDate;
 
 				var chat = data[d].chat;
-				chat = chat.replace(/&lt;/g, '<');
-				chat = chat.replace(/&#34;/g, '"');
-				chat = chat.replace(/&gt;/g, '>');
-				chat = chat.replace(/&amp;nbsp;/g, '');
+					chat = atob(chat);
 
 				var da = { 
 					id : data[d]._id,
@@ -170,14 +167,9 @@ var ContentView = Backbone.View.extend({
 
 	updateChat : function() {
 
-		var updatechat = this.model.toJSON().updatechat;
+		var updatechat = this.model.toJSON().updatechat;		
 		var createdDate = new Date(updatechat.data.created);
-
-		updatechat.data.chat = updatechat.data.chat.replace(/&lt;/g, '<');
-		updatechat.data.chat = updatechat.data.chat.replace(/&#34;/g, '"');
-		updatechat.data.chat = updatechat.data.chat.replace(/&gt;/g, '>');
-		updatechat.data.chat = updatechat.data.chat.replace(/&amp;nbsp;/g, '');
-
+			updatechat.data.chat = atob(updatechat.data.chat);
 		var da = { 
 			id : updatechat.data._id,
 			username : updatechat.data.username, 
@@ -211,6 +203,7 @@ var ContentView = Backbone.View.extend({
 	},
 
 	userChanged : function() {
+		
 		var userchanged = this.model.toJSON().userchanged;
 		PS.Views.HeaderView.$el.find('.connections .connection_count').text(userchanged.users.count);
 		PS.Views.StatusView.updateStatus("Your user have been disconnected from the discussion...");
@@ -237,11 +230,8 @@ var ContentView = Backbone.View.extend({
 				createdDate = date.toString().split("GMT")[0].trim();	
 				data[d].date = createdDate;
 
-				var chat = data[d].chat;
-				chat = chat.replace(/&lt;/g, '<');
-				chat = chat.replace(/&#34;/g, '"');
-				chat = chat.replace(/&gt;/g, '>');
-				chat = chat.replace(/&amp;nbsp;/g, '');
+				var chat = data[d].chat;					
+					chat = atob(chat);
 
 				var da = { 
 					id : data[d]._id,
@@ -270,11 +260,17 @@ var ContentView = Backbone.View.extend({
 			e.preventDefault();
 			var target = $(e.currentTarget);			
 			var message = target.html();
-
+				
+				//message = btoa(message);
+				//console.log(message);
+			/*
 			var replaceStr = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
 	    	message = message.replace(replaceStr, '<a href="$1" target="_blank">$1</a>');
 			var replaceStr2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
     		message = message.replace(replaceStr2, '$1<a href="http://$2" target="_blank">$2</a>');
+			*/
+
+			message = btoa(message);
 
 			if(message != "") {
 				target.html("");
@@ -293,12 +289,16 @@ var ContentView = Backbone.View.extend({
 	},
 
 	showYourConnected : function() {
+		this.loadingPage = false;
+		this.page = 0;
 		var userCount = this.model.toJSON().showyourconnected.users.count;
 		var username = this.model.toJSON().showyourconnected.user.username;
 		PS.Views.HeaderView.$el.find('.connections .connection_count').text(userCount);
 		PS.Views.StatusView.updateStatus("You " + username + " are now connected to the page discussion...");
 		this.$el.find('.usernameForm').remove();
 		this.$el.append(ich.chatArea());
+
+		this.$el.find('.conversation_holder').unbind('scroll');
 		this.$el.find('.conversation_holder').perfectScrollbar().scroll(_.bind(function (e) {
 			var target = $(e.target);
 			if(this.loadingPage == false) {
@@ -309,29 +309,21 @@ var ContentView = Backbone.View.extend({
 				}
 			}
 
-		}, this));		
-	},
-
-	updateUserStatus : function() {
-
+		}, this));	
 	},
 
 	chatStart : function(e) {
-
-		if(e.which == 13) {
-
-			var username = $('.username').val();
-			var date = new Date();
-			var token = MD5(date.getTime()+username); 			
-			var user = { "username" : username, token : token };
-
-			chrome.storage.sync.set({ 'user': user }, _.bind(function() {
-				PS.user = user;
-				this.startChat(PS.user);
-			}, this));
-
-			//chrome.storage.sync.set({'chatAppUsername' : username });			
-			//this.startChat(username);			
+		if(e.which == 13 || e.which == 1) {
+			var username = this.$el.find('.username').val();
+			if(username.trim().length > 0) {
+				var date = new Date();
+				var token = MD5(date.getTime()+username); 			
+				var user = { "username" : username, token : token };
+				chrome.storage.local.set({ 'user' : user }, _.bind(function() {
+					PS.user = user;
+					this.startChat(PS.user);				
+				}, this));
+			}	
 		}
 	},
 
@@ -339,7 +331,7 @@ var ContentView = Backbone.View.extend({
 		var url = document.URL.split('#');
 		var room = url[0];
 		room = MD5(room);
-		PS.socket.emit('adduser', { "user" : user, "room" : room });			
+		PS.socket.emit('adduser', { "user" : user, "room" : room });
 	},
 
 	destroy : function() {

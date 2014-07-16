@@ -37,13 +37,7 @@ var HeaderView = Backbone.View.extend({
 	},
 
 	addNewUser: function(e) {
-
 		PS.socket.emit('changeconnection', { "room" : PS.room });
-
-
-		//
-		//PS.Views.ContentView.createNewUser();
-
 	},
 
 	render: function () {

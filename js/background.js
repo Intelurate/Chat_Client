@@ -3,10 +3,6 @@
 
 var startClick = false;
 
-var username = null;
-
-chrome.chatApp = { username : "Eddie" };
-
 var loadAppFiles = function(tabId, scripts, callBack) {
 	var obj = {
 		count : 0,
@@ -46,75 +42,36 @@ var loadAppFiles = function(tabId, scripts, callBack) {
 
 window.tabObjs = {};
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
-/*
+});
+
+chrome.tabs.onActivated.addListener(function(result) {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { 
+		chrome.tabs.sendMessage(tabs[0].id, { 'check_updates' : 'true' }, function() {
+		});
+	});
+});
+
+chrome.windows.onFocusChanged.addListener(function(result){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) { 
+		chrome.tabs.sendMessage(tabs[0].id, { 'check_updates' : 'true' }, function() {
+		});
+	});
+});
+
+//chrome.storage.local.remove('swarm_tabs');
+
+//removes tab from list
+chrome.tabs.onRemoved.addListener(function(tabId) {
+
+});
+
 chrome.browserAction.onClicked.addListener(function(tab) {
 
-	var tabHashed = "__"+MD5(tab.id.toString())+"__";
-
-	if(!tabObjs[tabHashed]) {
-		tabObjs[tabHashed] = {};
-		tabObjs[tabHashed].appStatus = "notLoaded";
-	}
-
-	console.log(tabObjs[tabHashed].appStatus)
-	
-	if(tabObjs[tabHashed].appStatus == "notLoaded") {
-		
-		chrome.tabs.executeScript(tab.id,{"code": "window.stop();"});
-
-		loadAppFiles(tab.id, [
-			'css/styles.css', 
-			'js/jquery.js', 
-			'js/underscore.js', 
-			'js/backbone.js', 
-			'js/icanhaz.js', 
-			'js/socketio.js', 
-			'js/md5.js', 
-			'js/templates.js', 					
-			'js/viewModels/headerViewModel.js',
-			'js/viewModels/contentViewModel.js',
-			'js/viewModels/appViewModel.js',
-			'js/viewModels/statusViewModel.js',
-			'js/chat.js'], 
-		function() {			
-
-			window.tabObjs[tabHashed].appStatus = "displayed";
-			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-			  	chrome.tabs.sendMessage(tab.id, { action : "chatloaded" }, function(response) {
-			  		tabObjs[tabHashed].appStatus = response;
-			  	});
-			});					
-		});	
-
-	} else if(tabObjs[tabHashed].appStatus == "displayed") {
-
-		console.log(tabHashed)
-
-		tabObjs[tabHashed].appStatus = "hidden";
-
-		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		  	chrome.tabs.sendMessage(tab.id, { action : "hidechat" }, function(response) {			
-		  		console.log('shit')
-		  	});
-		});
-
-	} else if(tabObjs[tabHashed].appStatus == "hidden") {		
-
-		tabObjs[tabHashed].appStatus = "displayed";
-		chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		  	chrome.tabs.sendMessage(tab.id, { action : "showchat" }, function(response) {
-		  		console.log(response);
-		  	});
-		});
-
-	}
 });
-*/
-
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-
 
 	var onGoogle = false;
 	var querys = ['search', 'webhp'];
@@ -126,6 +83,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 				tab.favIconUrl != undefined &&
 				tab.status == "complete") {	
 					loadAppFiles(tab.id, [					
+						'css/google_search.css', 
 						'js/jquery.js', 
 						'js/socketio.js', 
 						'js/md5.js', 
@@ -134,8 +92,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 			}
 		}
 	}
-
-	console.log(tab);
 
 	if(onGoogle == false) {
 
@@ -149,9 +105,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 
 		if(changeInfo.status == "complete") {
 
-			if(!window.tabObjs[tabHashed]) {				
+			if(!window.tabObjs[tabHashed]) {
 				window.tabObjs[tabHashed] = {
-					appStatus : "notLoaded"
+					appStatus : "notLoaded",
+					tabId : tab.id
 				};
 			}
 
@@ -203,9 +160,10 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 		var tabHashed = MD5(tabId.toString());
 		if(tabObjs[tabHashed]) {
 			if(changeInfo.status == "complete") {
-				if(hashExist != -1) {
+				if(hashExist != -1) {			
 					var hash1 = tabObjs[tabHashed].url.split("#")[1]; 
 					var hash2 = tab.url.split("#")[1];
+
 					if(hash1 == hash2) {
 						delete tabObjs[tabHashed];
 					}else{

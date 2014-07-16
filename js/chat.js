@@ -10,12 +10,6 @@
 		room : MD5(url[0])
 	};
 
-
-	//window.socketX = io.connect('ws://flock.ethamatics.com/');
-	//window.socketX = io.connect('ws://localhost:8000/');
-	//window.socketX = io.connect('ws://66.176.176.233:1337');
-	//window.socketX = io.connect('ws://54.85.103.208'); 
-
 	//get current connection
 
 	/*
@@ -42,8 +36,8 @@
 	worker.postMessage({ 'name' : 'eddie' });
 	*/
 
-	window.page_swarm = new AppView();
-	$('body').prepend(window.page_swarm.$el);
+	PS.Views.AppView = new AppView();
+	$('body').prepend(PS.Views.AppView.$el);
 
 
 

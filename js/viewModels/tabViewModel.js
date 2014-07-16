@@ -71,6 +71,20 @@ var TabView = Backbone.View.extend({
 		}, this));		
 	},
 
+
+	hide: function() {
+		this.$el.css({
+			'right' : '70'
+		});	
+	},
+
+	show: function () {
+		this.$el.css({
+			'right' : '0'
+		});		
+	},
+
+
 	moveTab: function() {
 
 		$('body').mousemove(_.bind(function( event ) {
