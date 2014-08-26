@@ -18,18 +18,22 @@ var StatusView = Backbone.View.extend({
 	className : 'status',
 
 	events: {
-		//'click #toggle-all': 'toggleAllComplete'
+		'click': 'checkClick'
 	},
 
 	initialize: function () {
 		this.render();
 	},
 
+	checkClick: function(e) {
+		e.stopPropagation();
+	},
+
 	updateStatus : function(status_message) {
 
 		this.$el.empty().append('<div class="status_message">'+status_message+'</div>');			
 
-			this.$el.stop().css({opacity: 1 });
+			this.$el.stop().css({ opacity : 1, display: 'block' });
 
 			setTimeout(_.bind(function() {	
 
@@ -38,11 +42,12 @@ var StatusView = Backbone.View.extend({
 				}, 500, function() {
 					$(this).empty();
 					$(this).css({
+						'display' : 'none',
 						'opacity' : 1
 					});
 				});	
 
-			}, this), 2000);	
+			}, this), 1000);	
 	},
 	
 	startConnectingStatus : function() {

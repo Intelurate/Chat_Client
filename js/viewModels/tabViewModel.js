@@ -44,10 +44,53 @@ var TabView = Backbone.View.extend({
 		this.$el.find('.tab_icon').css({
 			'background-image' : 'url(' + chrome.extension.getURL("/images/page_swarm_tab_icon.png") + ')'
 		});
+		
+		this.$el.draggable({ 
+
+			axis : "y", 
+
+			pastY: 0,
+
+			drag: _.bind(function( event, ui ) {
+				//var height = ui.position.top;
+				//this.pastY = height;
+			}, this),
+
+			start: _.bind(function( event, ui ) {
+				var height = ui.position.top;
+				this.pastY = height;
+				
+				this.$el.stop();
+
+			}, this),
+
+			stop: _.bind(function( event, ui ) {
+
+				event.stopPropagation();
+				var windowHeight = $('html').height();
+				var height = ui.position.top;
+				var percentage = ((height/windowHeight) * 100);
+
+				this.$el.removeAttr( 'style' ).css({'position':'absolute', 'right':'0', 'top':height })
+
+				if(this.pastY < height) {			
+					height = height + 15;
+				}else{					
+					height = height - 15;				
+				}
+	            this.$el.stop().animate({
+	                top: height
+	            },800, 'easeOutElastic', _.bind(function() {
+	            },this));			
+
+			}, this)
+
+		});
 
 	},
 
-	openPageSwarm:function() {
+	openPageSwarm:function(e) {
+		e.stopPropagation();
 		if(this.status == true) {
 			this.close();
 		}

@@ -1,43 +1,23 @@
 
 
-	var url = document.URL.split('#');
+var url = document.URL.split('#');
+	url = url[0]
 
-	var PS = {
-		Views : {},
-		Models : {},
-		//socket : io.connect('ws://localhost:8888/'),
-		socket : io.connect('ws://app.pageswarm.com/'),
-		room : MD5(url[0])
-	};
+String.prototype.insertAt=function(index, string) { 
+  return this.substr(0, index) + string + this.substr(index);
+}
 
-	//get current connection
+var PS = {
+	Views : {},
+	Models : {},
+	room : MD5(url)
+};
 
-	/*
-	var test = (function(){self.onmessage=function(e){ var now = new Date().getTime();while(new Date().getTime() < now + 4000) {}	this.postMessage(e.data); }})();
-	
-	// "Server response", used in all examples
-	var response = "(function(){self.onmessage=function(e){ var now = new Date().getTime();while(new Date().getTime() < now + 4000) {}	this.postMessage(e.data); }})()";
-	
-	var blob;
 
-	try {
-	    blob = new Blob([response], {type: 'application/javascript'});
-	} catch (e) { // Backwards-compatibility
-	    window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
-	    blob = new BlobBuilder();
-	    blob.append(response);
-	    blob = blob.getBlob();
-	}
-	var worker = new Worker(URL.createObjectURL(blob));
-
-	worker.onmessage = function(e) {
-		alert('Worker said: ' + e.data.name);
-	}
-	worker.postMessage({ 'name' : 'eddie' });
-	*/
-
-	PS.Views.AppView = new AppView();
-	$('body').prepend(PS.Views.AppView.$el);
+PS.Views.AppView = new AppView({
+	model : new AppModel()
+});
+$('body').prepend(PS.Views.AppView.$el);
 
 
 

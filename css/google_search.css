@@ -1,23 +1,30 @@
 
 body .googleSearchStat{
-	font-size:12px;
-	padding:3px;
+	font-size:12px !important;
+	padding:3px !important;
 	background-color: #f2cf39 !important;
-	overflow: hidden;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	float: right;	
+	overflow: hidden !important;
+	-webkit-border-radius: 3px !important;
+	-moz-border-radius: 3px !important;
+	border-radius: 3px !important;
+	float: right !important;
+	border: 2px solid #000 !important;
+	display: block !important;
+	height: auto !important;
 }
 
 body .googleSearchStat p{
-	padding: 2px 2px 1px 2px;
-	margin: 0;
-	float: left;
+	padding: 2px 2px 1px 2px !important;
+	margin: 0 !important;
+	float: left !important;
 }
 
 body .googleSearchStat img{
-	float:left;
-	padding-bottom:0px;
-	padding-right:4px;
+	float:left !important;
+	padding: 0 !important;
+	margin: 0 !important;
+	padding-bottom:0px !important;
+	padding-right:4px !important;
+	height: 16px !important;
+	width: 16px !important;
 }

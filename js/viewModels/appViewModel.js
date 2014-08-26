@@ -4,11 +4,20 @@
 var AppModel = Backbone.Model.extend({
 
 	initialize: function () {
-
+		this.fetch();
 	},
 
 	fetch : function() {
-
+		chrome.runtime.onMessage.addListener(_.bind(function(request, sender, sendResponse) {
+			switch(request.command) {
+				case 'userleftroom':
+					this.set({ 'userleftroom' : { data : request.data } });
+				break;		
+				case 'userentersroom':
+					this.set({ 'userentersroom' : { data : request.data } });
+				break;
+			}
+		}, this));
 	}
 
 });
@@ -25,8 +34,22 @@ var AppView = Backbone.View.extend({
 	},
 
 	initialize: function () {
+		this.listenTo(this.model, "change:userleftroom", this.userLeftRoom);
+		this.listenTo(this.model, "change:userentersroom", this.userEntersRoom);
 		this.render();
 	},
+
+	userLeftRoom: function () {
+		var userleftroom = this.model.toJSON().userleftroom;
+		PS.Views.HeaderView.$el.find('.connections .connection_count').text(userleftroom.data.count);
+		PS.Views.StatusView.updateStatus(userleftroom.data.user.username + " has left the discussion...");
+	},
+
+	userEntersRoom: function () {
+		var userentersroom = this.model.toJSON().userentersroom;
+		PS.Views.HeaderView.$el.find('.connections .connection_count').text(userentersroom.data.count);
+		PS.Views.StatusView.updateStatus(userentersroom.data.user.username + " has entered the discussion...");
+	},	
 	
 	appEnter: function(e) {
 		e.stopPropagation();
@@ -37,6 +60,12 @@ var AppView = Backbone.View.extend({
 	},
 
 	render: function () {
+
+		PS.Models.StatusModel = new StatusModel();
+		PS.Views.StatusView = new StatusView({
+			model : PS.Models.StatusModel
+		});
+		this.$el.empty().append(PS.Views.StatusView.$el);
 
 		PS.Models.TabModel = new TabModel(); 
 		PS.Views.TabView  = new TabView({
@@ -73,6 +102,8 @@ var AppView = Backbone.View.extend({
 				}, this), 500);
 			}
 
+			this.checkLock();
+
 		},this));
 
 	},
@@ -93,11 +124,64 @@ var AppView = Backbone.View.extend({
 			if(result.user) {
 				if(PS.user.token != result.user.token) {				
 					PS.user = result.user;
-					PS.socket.emit('changeconnection', { "room" : PS.room });
+					//PS.socket.emit('changeconnection', { "room" : PS.room });
 					PS.Views.ContentView.startChat(PS.user);
 				}
 			}
 		}, this));
+
+		this.checkLock();
+	},
+
+	checkLock: function() {
+		chrome.storage.local.get('toggle_lock', function(result) {
+
+			if(result.toggle_lock) {
+				if(result.toggle_lock.locks) {
+					var host = MD5(window.location.host);
+					if(!result.toggle_lock.locks[host]) {
+						$('body').find('.page_swarm').css({'display':'block'});
+					}else{
+						$('body').find('.page_swarm').css({'display':'none'});
+					}
+				}
+			}else{
+				$('body').find('.page_swarm').css({'display':'block'});
+			}
+		});
+	},
+
+	toggleLock: function() {
+	
+		chrome.storage.local.get('toggle_lock', function(result) {
+	
+			var locks = {};
+			if(result.toggle_lock) {
+				if(result.toggle_lock.locks) {
+					locks = result.toggle_lock.locks;
+				}
+			}
+
+			var host = MD5(window.location.host);
+			
+			if(locks[host]) {
+				if(locks[host] == 'locked') {
+					delete locks[host];
+					$('body').find('.page_swarm').css({'display':'block'})
+				}else{
+					//PS.socket.emit('changeconnection', { "room" : PS.room });
+					locks[host] = 'locked';
+					$('body').find('.page_swarm').css({'display':'none'})
+				}
+			}else{
+				locks[host] = 'locked';
+				//PS.socket.emit('changeconnection', { "room" : PS.room });
+				$('body').find('.page_swarm').css({'display':'none'})						
+			}
+
+			chrome.storage.local.set({ 'toggle_lock' : { locks : locks } }, function() {
+			});
+		});
 	},
 
 	reRender : function() {
@@ -109,3 +193,13 @@ var AppView = Backbone.View.extend({
 	}
 
 });
+
+
+
+
+
+
+
+
+
+

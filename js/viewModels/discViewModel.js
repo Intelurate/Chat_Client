@@ -68,11 +68,14 @@ var DiscView = Backbone.View.extend({
 	},
 
 	render: function () {
-		PS.Models.UserListModel = new UserListModel(); 
-		PS.Views.UserListView  = new UserListView({
-			model : PS.Models.UserListModel
+
+		PS.Models.MenuModel = new MenuModel(); 
+		PS.Views.MenuView  = new MenuView({
+			model : PS.Models.MenuModel
 		});	
-		this.$el.append(PS.Views.UserListView.$el);	
+		this.$el.append(PS.Views.MenuView.$el);	
+
+
 		this.$el.append('<div class="page_swarm_left"></div>');	
 		PS.Models.HeaderModel = new HeaderModel(); 
 		PS.Views.HeaderView  = new HeaderView({
@@ -88,28 +91,30 @@ var DiscView = Backbone.View.extend({
 	},
 
 	close: function() {
+
 		this.sliding = true;
 		this.$el.stop();
 		this.$el.animate({
-			'right' : '-550px'
+			'right' : '-' + (parseInt(PS.Views.MenuView.menuWidth) + 450).toString() + 'px'
 		}, 300, _.bind(function() {
 			this.sliding = false;
 			this.appStatus = 'closed';
 			PS.Views.TabView.open();
-			chrome.runtime.sendMessage({'appStatus': { status : 'close' } }, function(){});
+			//chrome.runtime.sendMessage({'appStatus': { status : 'close' } }, function(){});
 			chrome.storage.local.set({'appStatus': { status : 'close' } }, function(){});	
 		}, this));	
 	},
 
 	open: function() {
 		this.sliding = true;
+		this.$el.css({'opacity': '1'});
 		this.$el.stop();
 		this.$el.animate({
 			'right' : '0'
 		}, 300, _.bind(function() {
 			this.sliding = false;
 			this.appStatus = 'open';
-			chrome.runtime.sendMessage({'appStatus': { status : 'open' } }, function(){});
+			//chrome.runtime.sendMessage({'appStatus': { status : 'open' } }, function(){});
 			chrome.storage.local.set({'appStatus' : { status : 'open' } }, function(){});		
 		}, this));
 	},

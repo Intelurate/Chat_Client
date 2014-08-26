@@ -1,25 +1,78 @@
 
 body .page_swarm{
-	position: fixed; !important;
-	top:0 !important;
+	position: fixed !important;
+	bottom:0 !important;
 	right: 0 !important;
 	width: 0px !important;
 	height: 100% !important;
-	z-index:9999999999999 !important;
+	z-index:999999999999999999 !important;
 	font-family: verdana !important;
 	width: 0 !important;
+	display: block;
 }
 
 body .page_swarm{
 	color: #000;
 }
 
+/*Minimized*/
+body .page_swarm.min{
+	bottom:0 !important;
+	width: 0px !important;
+	height: 60px !important;
+}
+
+/*Minimized Down*/
+body .page_swarm.min_down{
+	bottom:0 !important;
+	width: 0px !important;
+	height: 40px !important;
+}
+
+body .page_swarm .status{									
+	padding: 4px !important;
+	color:#333333 !important;
+	font-size:12px !important;
+	padding:12px !important;
+	right:0;
+	bottom:0;
+	width: 300px !important;
+	height: 60px !important;
+	position: fixed !important;
+	z-index: 999999999999999999 !important;
+	margin: 24px;
+	background-image: none;
+	background-color: none;
+}
+
+
+body .page_swarm .status .status_message{
+	-webkit-border-radius: 3px !important;
+	margin: 0px;
+	-moz-border-radius: 3px !important;
+	border-radius: 3px !important;	
+	background-color: #caffe0 !important;
+	border: 1px solid #ccc !important;
+	padding: 4px !important;
+	position: absolute;
+	right: 0;
+	top: 0;
+	-webkit-box-shadow: 0px 0px 13px -2px rgba(50, 50, 50, 0.5);
+	-moz-box-shadow:    0px 0px 13px -2px rgba(50, 50, 50, 0.5);
+	box-shadow:         0px 0px 13px -2px rgba(50, 50, 50, 0.5);
+}
+
+
+
+
+
+
 body .page_swarm .page_swarm_tab{
 	border: 4px solid black !important;
 	border-right: 0px !important;
 	background-color: #f2cf39 !important;
 	position: fixed !important;
-	top: 40% !important;
+	top: 40%;
 	right: -70px;
 	cursor: pointer !important;
 	width: auto !important;
@@ -51,7 +104,7 @@ body .page_swarm .page_swarm_discussion{
 	border-left: 1px solid #636363 !important;
 	background-color: #d2d2d2 !important;
 	position: fixed !important;
-	top: 0 !important;
+	bottom: 0 !important;
 	right: -500px;
 	z-index:99999 !important;	
 	height: 100% !important;
@@ -61,6 +114,27 @@ body .page_swarm .page_swarm_discussion{
 	background-image : url('chrome-extension://__MSG_@@extension_id__/images/honey_comb.png');
 }
 
+/*Minimized*/
+body .page_swarm.min .page_swarm_discussion{
+	border-top: 1px solid #636363 !important;	
+	bottom: 0 !important;	
+	height: 400px !important;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;	
+}
+
+/*Minimized Down*/
+body .page_swarm.min_down .page_swarm_discussion{
+	border-top: 1px solid #636363 !important;	
+	bottom: 0 !important;	
+	height: 60px !important;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;	
+}
+
+
 body .page_swarm .page_swarm_discussion .page_swarm_left{
 	width: 400px !important;
 	float: left !important;
@@ -68,30 +142,56 @@ body .page_swarm .page_swarm_discussion .page_swarm_left{
 	overflow: hidden; 	
 }
 
-body .page_swarm .page_swarm_discussion .page_swarm_user_list{
+body .page_swarm .page_swarm_discussion .page_swarm_menu{
+	
+	/*TODO: Need to find embeded font
+	font-family: 'proxima-nova';*/
+
 	width: 0px;
 	height: 100% !important;
 	background-color: #231f20 !important;
 	float: right !important;
+
 }
 
-body .page_swarm .page_swarm_discussion .page_swarm_user_list h2{
+body .page_swarm .page_swarm_discussion .page_swarm_menu h2{
 	font-size: 14px;
-	text-align: center;
+	text-align: left;
 	color: #f2cf39;
 	margin: 0;
 	margin-top: 10px;
 	padding: 0;
 	border: 1px solid  #231f20;
-	width: 120px;
+	width: 100%;
+	padding-left: 10px;
 }
 
-body .page_swarm .page_swarm_discussion .page_swarm_user_list .user_list p{
+body .page_swarm .page_swarm_discussion .page_swarm_menu .user_list p{
 	color: #fff !important;
 	width: 120px !important;
 	font-size: 12px !important;
-	padding: 1px 6px 1px 6px !important;
+	padding: 1px 6px 1px 12px !important;
 	margin: 0 !important;
+	margin-top: 2px !important;
+}
+
+body .page_swarm .page_swarm_discussion .page_swarm_menu .settings{
+	padding: 6px;
+	padding-top: 0;
+	margin: 0;
+}
+body .page_swarm .page_swarm_discussion .page_swarm_menu .settings ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+body .page_swarm .page_swarm_discussion .page_swarm_menu .settings ul li{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	color: #fff;
+	font-size: 11px;
 }
 
 body .page_swarm .header_bar{						
@@ -173,6 +273,41 @@ body .page_swarm .header_bar .bottom_header .terms_of_use{
 	cursor: pointer;
 }
 
+body .page_swarm .header_bar .bottom_header .terms_of_use .terms{
+	overflow: hidden;
+	position: absolute;
+	bottom: 3px;
+	height: 0px;
+	width: 0px;
+	left: 3px;
+	background-color: #333;
+	color: #fff;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+body .page_swarm .header_bar .bottom_header .terms_of_use .terms .terms_scroller{
+	height: 100%;
+	overflow: hidden;
+	overflow-y: scroll; 
+}
+
+body .page_swarm .header_bar .bottom_header .terms_of_use .terms p{
+	padding: 10px;
+	color: #fff;
+	font-size: 13px;
+}
+
+body .page_swarm .header_bar .bottom_header .terms_of_use .terms h2{
+	color: #fff;
+	font-size: 16px;
+	padding: 00px;
+	border: none;
+	margin: 10px;	
+}
+
+
 body .page_swarm .header_bar .connections{
 	padding:0px !important;
 	margin: 2px;
@@ -191,22 +326,6 @@ body .page_swarm .page_swarm_contents{
 	width:400px !important;
 	font-size: 12px !important;
 	height: 100% !important;
-}
-
-body .page_swarm .page_swarm_contents .status{									
-	padding: 4px !important;
-	color:#333333 !important;
-	font-size:12px !important;
-	padding:6px !important;
-}
-
-body .page_swarm .page_swarm_contents .status .status_message{
-	-webkit-border-radius: 3px !important;
-	-moz-border-radius: 3px !important;
-	border-radius: 3px !important;	
-	background-color: #caffe0 !important;
-	border: 1px solid #ccc !important;
-	padding: 4px !important;
 }		
 
 body .page_swarm .page_swarm_contents .usernameForm{
@@ -218,6 +337,7 @@ body .page_swarm .page_swarm_contents .usernameForm{
 	font-size: 14px !important;
 	color: #333 !important;
 	text-align: left !important;
+	overflow: hidden;
 }
 
 body .page_swarm .page_swarm_contents .usernameForm .username{
@@ -226,17 +346,28 @@ body .page_swarm .page_swarm_contents .usernameForm .username{
 
 body .page_swarm .page_swarm_contents .usernameForm .join_btn{
 	float: left;
+	
 	-webkit-border-top-right-radius: 4px;
 	-webkit-border-bottom-right-radius: 4px;
 	-moz-border-radius-topright: 4px;
 	-moz-border-radius-bottomright: 4px;
 	border-top-right-radius: 4px;
 	border-bottom-right-radius: 4px;
+
+
+	-webkit-border-top-left-radius: 0px !important;
+	-webkit-border-bottom-left-radius: 0px !important;
+	-moz-border-radius-topleft: 0px !important;
+	-moz-border-radius-bottomleft: 0px !important;
+	border-top-left-radius: 0px !important;
+	border-bottom-left-radius: 0px !important;
+
 	color: #fff;
 	font-size: 14px !important;
 	background-color: #999;
 	padding: 8px 10px 10px 10px;
-	margin: 2px 6px 0px 0px; 
+	margin: 0px 6px 0px 0px;
+	cursor: pointer; 
 }
 
 body .page_swarm .page_swarm_contents .usernameForm .join_btn:hover{
@@ -244,21 +375,38 @@ body .page_swarm .page_swarm_contents .usernameForm .join_btn:hover{
 }
 
 body .page_swarm .page_swarm_contents .usernameForm input{
-	-webkit-border-top-left-radius: 4px;
-	-webkit-border-bottom-left-radius: 4px;
-	-moz-border-radius-topleft: 4px;
-	-moz-border-radius-bottomleft: 4px;
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
-	border-right: 4px solid #fff;	
+	-webkit-border-top-right-radius: 0px !important;
+	-webkit-border-bottom-right-radius: 0px !important;
+	-moz-border-radius-topRight: 0px !important;
+	-moz-border-radius-bottomRight: 0px !important;
+	border-top-right-radius: 0px !important;
+	border-bottom-right-radius: 0px !important;
+
+	-webkit-border-top-left-radius: 4px !important;
+	-webkit-border-bottom-left-radius: 4px !important;
+	-moz-border-radius-topleft: 4px !important;
+	-moz-border-radius-bottomleft: 4px !important;
+	border-top-left-radius: 4px !important;
+	border-bottom-left-radius: 4px !important;
+
+	-webkit-box-shadow: inset 1px 1px 1px 0px rgba(255, 255, 255, 1) !important;
+	-moz-box-shadow:    inset 1px 1px 1px 0px rgba(255, 255, 255, 1) !important;
+	box-shadow:         inset 1px 1px 1px 0px rgba(255, 255, 255, 1) !important;
+
+	border-right: 4px solid #fff !important;
 	font-size: 14px !important;
 	width: 200px !important;
 	padding: 8px !important;
 	border: 1px solid #fff !important;
+	margin: 0 !important;
 }
 
 body .page_swarm .page_swarm_contents .usernameForm input:focus{
 	outline: 0 !important;
+}
+
+body .page_swarm .page_swarm_contents .usernameForm p{
+	margin-bottom: 10px;
 }
 
 body .page_swarm .page_swarm_contents .chatarea{
@@ -296,7 +444,7 @@ body .page_swarm .page_swarm_contents .conversation_holder .conversation{
 
 body .page_swarm .page_swarm_contents .conversation_holder .conversation .emotocon{
 	padding-left: 2px;
-	padding-right:2px;
+	padding-right:2px;	
 }
 
 
@@ -314,20 +462,19 @@ body .page_swarm .page_swarm_contents .chatarea .message{
 
 
 body .page_swarm .page_swarm_contents .chatarea .facecons{
-	padding: 0px;
-	margin: 0px;
-	width: 100%;
-	
-	border-top: 1px solid #ccc;
-	overflow: hidden;
+	padding: 0px !important;
+	margin: 0px !important;
+	width: 100% !important;
+	border-top: 1px solid #ccc !important;
+	overflow: hidden !important;
 }
 
 body .page_swarm .page_swarm_contents .chatarea .facecon{
-	background-color: #fff;
-	float: right;
-	padding: 3px;
-	margin: 0;
-	cursor: pointer;
+	background-color: #fff !important;
+	float: right !important;
+	padding: 3px !important;
+	margin: 0 !important;
+	cursor: pointer !important;
 }
 
 

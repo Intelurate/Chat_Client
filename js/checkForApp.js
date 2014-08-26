@@ -5,6 +5,10 @@ if(!window.PS) {
 			window.PS.Views.AppView.checkUpdates();
 		}
 
+		if(request.toggle_lock) {
+			window.PS.Views.AppView.toggleLock();
+		}
+
 		if(request.action) {
 			if(request.action == "checkApp") {
 				if(window.PS ) {
