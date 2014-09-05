@@ -21,9 +21,9 @@ var HeaderView = Backbone.View.extend({
 	events: {
 		'click .close_app' : 'closeApp',
 
-		'click .minmize' : 'minmizeApp',
+		'click .minmize_up' : 'minimizeAppUp',
 
-		'click .minmize_down' : 'minmizeAppDown',				
+		'click .minmize_down' : 'minimizeAppDown',				
 
 		'click .users' : 'showLiveUsers',		
 		'click .add_user' : 'addNewUser',
@@ -92,21 +92,38 @@ var HeaderView = Backbone.View.extend({
 		PS.Views.MenuView.toggle('Users');
 	},
 
-	minmizeApp: function(e) {
+	minStatus : 0,
 
-		if(PS.Views.AppView.$el.hasClass('min')){
-			PS.Views.AppView.$el.removeClass('min');
-		}else{
-			PS.Views.AppView.$el.addClass('min');
+	minimizeAppUp: function(e) {
+
+		switch(this.minStatus) {
+			case 1:	
+				this.minStatus = 0;
+				PS.Views.AppView.$el.removeClass('min');
+				break;				
+			case 2:
+				this.minStatus = 1;
+				PS.Views.AppView.$el.addClass('min');
+				PS.Views.AppView.$el.removeClass('min_down');				
+				break;
 		}
+
 	},
 
-	minmizeAppDown: function(e) {
-		if(PS.Views.AppView.$el.hasClass('min_down')) {
-			PS.Views.AppView.$el.removeClass('min_down');
-		}else{
-			PS.Views.AppView.$el.addClass('min_down');
+	minimizeAppDown: function(e) {
+
+		switch(this.minStatus) {
+			case 0:
+				this.minStatus = 1;
+				PS.Views.AppView.$el.addClass('min');
+				break;
+			case 1:	
+				this.minStatus = 2;
+				PS.Views.AppView.$el.removeClass('min');
+				PS.Views.AppView.$el.addClass('min_down');
+				break;				
 		}
+
 	},
 
 	setUserCount : function(count) {

@@ -26,6 +26,12 @@
 }
 
 
+.ps-icon-download:before {
+	content: "\e609";
+}
+.ps-icon-upload:before {
+	content: "\e60a";
+}
 .ps-icon-directions:before {
 	content: "\e600";
 }
@@ -41,8 +47,17 @@
 .ps-icon-export:before {
 	content: "\e604";
 }
+.ps-icon-popup:before {
+	content: "\e60b";
+}
 .ps-icon-cog:before {
 	content: "\e605";
+}
+.ps-icon-minus:before {
+	content: "\e60c";
+}
+.ps-icon-plus:before {
+	content: "\e60d";
 }
 .ps-icon-info:before {
 	content: "\e606";
@@ -53,6 +68,29 @@
 .ps-icon-text:before {
 	content: "\e608";
 }
-
+.ps-icon-arrow-left:before {
+	content: "\e60e";
+}
+.ps-icon-arrow-down:before {
+	content: "\e60f";
+}
+.ps-icon-arrow-up:before {
+	content: "\e610";
+}
+.ps-icon-arrow-right:before {
+	content: "\e611";
+}
+.ps-icon-arrow-left2:before {
+	content: "\e612";
+}
+.ps-icon-arrow-down2:before {
+	content: "\e613";
+}
+.ps-icon-arrow-up2:before {
+	content: "\e614";
+}
+.ps-icon-arrow-right2:before {
+	content: "\e615";
+}
 
 

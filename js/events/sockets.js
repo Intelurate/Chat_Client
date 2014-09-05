@@ -1,12 +1,12 @@
 
 var PSX = {
-	socket : io.connect('http://localhost:8888/'),
+	socket : io.connect('http://localhost:8889/'),
 	commands : {
-		send : function(command, data) {
-			if(PSX.socket.socket.connected) {
+		send : function(command, data) {			
+			if(PSX.socket.connected) {
 				PSX.socket.emit(command, data);
 			}else{
-				PSX.socket.socket.connect();
+				PSX.socket.connect();
 				PSX.socket.emit(command, data);
 			}			
 		}
@@ -14,8 +14,9 @@ var PSX = {
 	rooms : {}
 }
 
-
 PSX.socket.on('verifyconnection', function (d) {
+
+	console.log(d);
 
 	if(PSX.rooms[d.data.room]) {					
 		if(!PSX.rooms[d.data.room].tabs[d.data.tabId]) {

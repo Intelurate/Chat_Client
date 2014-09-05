@@ -256,13 +256,13 @@ body .page_swarm .header_bar .users{
 
 body .page_swarm .header_bar .bottom_header{
 	font-size: 10px !important;
-	position: absolute;
-	bottom: 0;
-	height: 17px;
-	border-top: 1px solid #000;
-	width: 400px;
-	z-index: 9999;
-	background-color: #f2cf39 !important;		
+	position: absolute !important;
+	bottom: 0 !important;
+	height: 17px !important;
+	border-top: 1px solid #000 !important;
+	width: 400px !important;
+	z-index: 9999 !important;
+	background-color: #f2cf39 !important;
 }
 
 
@@ -309,16 +309,28 @@ body .page_swarm .header_bar .bottom_header .terms_of_use .terms h2{
 
 
 body .page_swarm .header_bar .connections{
+
+	margin: 2px !important;
+	padding-right: 8px !important;
+	margin-right: 10px !important;
+	float: right !important;
+	padding: 0px !important;
+}
+body .page_swarm .header_bar .connections .connections_txt{
 	padding:0px !important;
-	margin: 2px;
-	padding-right: 8px;
-	margin-right: 10px;
-	float: right;
+	margin: 0px !important;
+	float: left !important;
+	line-height: 12px !important;
 }
 
 body .page_swarm .header_bar .connections .connection_count{
-	color: #000000;
-	text-align: center; !important;	
+	color: #000000 !important;
+	padding:0px !important;
+	margin: 0px !important;
+	text-align: center !important;
+	float: left !important;
+	line-height: 12px !important;
+	margin-right: 5px !important;
 }
 
 body .page_swarm .page_swarm_contents{
