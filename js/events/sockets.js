@@ -1,8 +1,18 @@
 
 var PSX = {
-	socket : io.connect('http://localhost:8889/'),
+	socket : io.connect('http://localhost:8888/'),
 	commands : {
-		send : function(command, data) {			
+		send : function(command, data) {
+			if(PSX.rooms[data.room]) {					
+				if(!PSX.rooms[data.room].tabs[data.tabId]) {
+					PSX.rooms[data.room].tabs[data.tabId] = { id : data.tabId, user : data.user };	
+				}
+			}else{
+				PSX.rooms[data.room] = {};
+				PSX.rooms[data.room].tabs = {};	
+				PSX.rooms[data.room].tabs[data.tabId] = { id : data.tabId, user : data.user };
+			}
+
 			if(PSX.socket.connected) {
 				PSX.socket.emit(command, data);
 			}else{
@@ -16,22 +26,18 @@ var PSX = {
 
 PSX.socket.on('verifyconnection', function (d) {
 
-	console.log(d);
-
-	if(PSX.rooms[d.data.room]) {					
-		if(!PSX.rooms[d.data.room].tabs[d.data.tabId]) {
-			PSX.rooms[d.data.room].tabs[d.data.tabId] = { id : d.data.tabId, user : d.data.user };	
-		}
-	}else{
-		PSX.rooms[d.data.room] = {};
-		PSX.rooms[d.data.room].tabs = {};	
-		PSX.rooms[d.data.room].tabs[d.data.tabId] = { id : d.data.tabId, user : d.data.user };
-	}
+	// if(PSX.rooms[d.data.room]) {					
+	// 	if(!PSX.rooms[d.data.room].tabs[d.data.tabId]) {
+	// 		PSX.rooms[d.data.room].tabs[d.data.tabId] = { id : d.data.tabId, user : d.data.user };	
+	// 	}
+	// }else{
+	// 	PSX.rooms[d.data.room] = {};
+	// 	PSX.rooms[d.data.room].tabs = {};	
+	// 	PSX.rooms[d.data.room].tabs[d.data.tabId] = { id : d.data.tabId, user : d.data.user };
+	// }
 
 	chrome.tabs.sendMessage(d.data.tabId, { command : 'verifyconnection', data : d.data }, function() {});
 });
-
-
 
 PSX.socket.on('shownewuser', function (d) {
 	chrome.tabs.sendMessage(d.data.tabId, { command : 'shownewuser', data : d.data }, function() {});
@@ -43,16 +49,25 @@ PSX.socket.on('sendpaging', function (d) {
 });
 
 
-
 PSX.socket.on('userdisconnected', function (d) {
-	chrome.tabs.sendMessage(d.data.tabId, { command : 'userdisconnected', data : d.data }, function() {});
+	
+	console.log(d);
+
+	if(PSX.rooms[d.data.room]) {					
+		if(PSX.rooms[d.data.room].tabs) {
+			var tabs = _.keys(PSX.rooms[d.data.room].tabs);
+			for(tab in tabs) {
+				chrome.tabs.sendMessage(parseInt(tabs[tab]), { command : 'userdisconnected', data : d.data }, function() {});
+			}
+		}
+	}	
 });
 
 
 
 
 PSX.socket.on('userleftroom', function (d) {
-	
+
 	if(PSX.rooms[d.room]) {					
 		if(PSX.rooms[d.room].tabs) {
 			var tabs = _.keys(PSX.rooms[d.room].tabs);
@@ -87,10 +102,18 @@ PSX.socket.on('selfdisconnected', function (d) {
 
 
 PSX.socket.on('updatechat', function (d) {
+
+	console.log("Updated Chat")
+	console.log(d)
+	console.log(PSX.rooms);
+
 	if(PSX.rooms[d.data.room]) {					
 		if(PSX.rooms[d.data.room].tabs) {
 			var tabs = _.keys(PSX.rooms[d.data.room].tabs);
 			for(tab in tabs) {
+				
+				console.log('sends tab');
+
 				chrome.tabs.sendMessage(parseInt(tabs[tab]), { command : 'updatechat', data : d }, function() {});
 			}
 		}

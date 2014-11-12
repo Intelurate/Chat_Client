@@ -101,6 +101,7 @@
     -webkit-transition: background-color.2s linear;
     -moz-transition: background-color .2s linear;
     transition: background-color .2s linear;
+    display: none;
 }
 
 .ps-container.ie6 .ps-scrollbar-y {

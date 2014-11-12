@@ -1,45 +1,48 @@
+html{
+	height: 100%;
+	overflow: hidden;
+}
+body{
+	padding: 0 !important;
+	margin: 0 !important;
+	overflow: hidden;
+	height: 100%;
+	display: block;
+}
 
 body .page_swarm{
-	position: fixed !important;
-	bottom:0 !important;
-	right: 0 !important;
-	width: 0px !important;
-	height: 100% !important;
-	z-index:999999999999999999 !important;
-	font-family: verdana !important;
-	width: 0 !important;
+	width: 100% !important;
+	height: 100%;
+	font-family: verdana;
+	width: 0;
 	display: block;
+}
+
+body .ps_url{
+	margin-top: 4px;	
+	font-size: 13px;
+	padding: 4px;
+	overflow: hidden;
+	height: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;	
 }
 
 body .page_swarm{
 	color: #000;
 }
 
-/*Minimized*/
-body .page_swarm.min{
-	bottom:0 !important;
-	width: 0px !important;
-	height: 60px !important;
-}
-
-/*Minimized Down*/
-body .page_swarm.min_down{
-	bottom:0 !important;
-	width: 0px !important;
-	height: 40px !important;
-}
-
 body .page_swarm .status{									
-	padding: 4px !important;
-	color:#333333 !important;
-	font-size:12px !important;
-	padding:12px !important;
-	right:0;
+	padding: 4px;
+	color:#333333;
+	font-size:12px;
+	padding:12px;
+	left:0;
 	bottom:0;
-	width: 300px !important;
-	height: 60px !important;
-	position: fixed !important;
-	z-index: 999999999999999999 !important;
+	width: 300px;
+	height: 60px;
+	position: fixed;
+	z-index: 999999999999999999;
 	margin: 24px;
 	background-image: none;
 	background-color: none;
@@ -47,15 +50,15 @@ body .page_swarm .status{
 
 
 body .page_swarm .status .status_message{
-	-webkit-border-radius: 3px !important;
+	-webkit-border-radius: 3px;
 	margin: 0px;
-	-moz-border-radius: 3px !important;
-	border-radius: 3px !important;	
-	background-color: #caffe0 !important;
-	border: 1px solid #ccc !important;
-	padding: 4px !important;
+	-moz-border-radius: 3px;
+	border-radius: 3px;	
+	background-color: #caffe0;
+	border: 1px solid #ccc;
+	padding: 4px;
 	position: absolute;
-	right: 0;
+	left: 0;
 	top: 0;
 	-webkit-box-shadow: 0px 0px 13px -2px rgba(50, 50, 50, 0.5);
 	-moz-box-shadow:    0px 0px 13px -2px rgba(50, 50, 50, 0.5);
@@ -63,81 +66,53 @@ body .page_swarm .status .status_message{
 }
 
 
-
-
-
-
 body .page_swarm .page_swarm_tab{
-	border: 4px solid black !important;
-	border-right: 0px !important;
-	background-color: #f2cf39 !important;
-	position: fixed !important;
+	border: 4px solid black;
+	border-right: 0px;
+	background-color: #f2cf39;
+	position: fixed;
 	top: 40%;
 	right: -70px;
-	cursor: pointer !important;
-	width: auto !important;
-	height: auto !important;
-	z-index:99999 !important;
-	padding: 6px !important;
-	-webkit-border-top-left-radius: 8px !important;
-	-webkit-border-bottom-left-radius: 8px !important;
-	-moz-border-radius-topleft: 8px !important;
-	-moz-border-radius-bottomleft: 8px !important;
-	border-top-left-radius: 8px !important;
-	border-bottom-left-radius: 8px !important;
-	-webkit-box-shadow: -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;
-	-moz-box-shadow:    -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;
-	box-shadow:         -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;	
+	cursor: pointer;
+	width: auto;
+	height: auto;
+	z-index:99999;
+	padding: 6px;
+	-webkit-border-top-left-radius: 8px;
+	-webkit-border-bottom-left-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	-moz-border-radius-bottomleft: 8px;
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+	-webkit-box-shadow: -5px 0px 10px 0px rgba(50, 50, 50, 0.30);
+	-moz-box-shadow:    -5px 0px 10px 0px rgba(50, 50, 50, 0.30);
+	box-shadow:         -5px 0px 10px 0px rgba(50, 50, 50, 0.30);	
+
 }
 
 body .page_swarm .page_swarm_tab .tab_icon{
-	width: 38px !important;
-	height: 46px !important;
-	padding: 0 !important;
-	margin: 0 !important;
-	background-repeat: no-repeat !important;
+	width: 38px;
+	height: 46px;
+	padding: 0;
+	margin: 0;
+	background-repeat: no-repeat;
 }
 
 
 body .page_swarm .page_swarm_discussion{
 	overflow: hidden;
-	border-left: 1px solid #636363 !important;
-	background-color: #d2d2d2 !important;
-	position: fixed !important;
-	bottom: 0 !important;
-	right: -500px;
-	z-index:99999 !important;	
-	height: 100% !important;
-	-webkit-box-shadow: -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;
-	-moz-box-shadow:    -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;
-	box-shadow:         -5px 0px 10px 0px rgba(50, 50, 50, 0.30) !important;
+	background-color: #d2d2d2;	
+	height: 100%;
+	-webkit-box-shadow: -5px 0px 10px 0px rgba(50, 50, 50, 0.30);
+	-moz-box-shadow:    -5px 0px 10px 0px rgba(50, 50, 50, 0.30);
+	box-shadow:         -5px 0px 10px 0px rgba(50, 50, 50, 0.30);
 	background-image : url('chrome-extension://__MSG_@@extension_id__/images/honey_comb.png');
-}
-
-/*Minimized*/
-body .page_swarm.min .page_swarm_discussion{
-	border-top: 1px solid #636363 !important;	
-	bottom: 0 !important;	
-	height: 400px !important;
-	-webkit-border-top-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	border-top-left-radius: 5px;	
-}
-
-/*Minimized Down*/
-body .page_swarm.min_down .page_swarm_discussion{
-	border-top: 1px solid #636363 !important;	
-	bottom: 0 !important;	
-	height: 60px !important;
-	-webkit-border-top-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	border-top-left-radius: 5px;	
 }
 
 
 body .page_swarm .page_swarm_discussion .page_swarm_left{
-	width: 400px !important;
-	float: left !important;
+	width: 100%;
+	float: left;
 	height: 100%;
 	overflow: hidden; 	
 }
@@ -148,9 +123,9 @@ body .page_swarm .page_swarm_discussion .page_swarm_menu{
 	font-family: 'proxima-nova';*/
 
 	width: 0px;
-	height: 100% !important;
-	background-color: #231f20 !important;
-	float: right !important;
+	height: 100%;
+	background-color: #231f20;
+	float: right;
 
 }
 
@@ -167,12 +142,12 @@ body .page_swarm .page_swarm_discussion .page_swarm_menu h2{
 }
 
 body .page_swarm .page_swarm_discussion .page_swarm_menu .user_list p{
-	color: #fff !important;
-	width: 120px !important;
-	font-size: 12px !important;
-	padding: 1px 6px 1px 12px !important;
-	margin: 0 !important;
-	margin-top: 2px !important;
+	color: #fff;
+	width: 120px;
+	font-size: 12px;
+	padding: 1px 6px 1px 12px;
+	margin: 0;
+	margin-top: 2px;
 }
 
 body .page_swarm .page_swarm_discussion .page_swarm_menu .settings{
@@ -195,44 +170,44 @@ body .page_swarm .page_swarm_discussion .page_swarm_menu .settings ul li{
 }
 
 body .page_swarm .header_bar{						
-	width:400px !important;
-	height: 35px !important;	
-	background-color: #f2cf39 !important;
-	border-bottom: 3px solid #000000 !important;
+	width:100% !important;
+	height: 35px;	
+	background-color: #f2cf39;
+	border-bottom: 3px solid #000000;
 	float: left;
-	color: #000000 !important;
-	position: inherit;
+	color: #000000;
+	position: inherit;	
 }
 
 body .page_swarm .header_bar .close_app{
-	cursor: pointer !important;
+	cursor: pointer;
 }
 
 body .page_swarm .header_bar .logo{					
-	float:left !important;
-	width:30px !important;
-	padding:3px !important;
-	color:#ffffff !important;
+	float:left;
+	width:30px;
+	padding:3px;
+	color:#ffffff;
 }
 
 body .page_swarm .header_bar .ps_icons{
-	font-size: 20px !important;
-	color: #000000 !important;
+	font-size: 20px;
+	color: #000000;
 }
 
 body .page_swarm .header_bar .ps_icons.left{
-	float: left !important;
+	float: left;
 }
 body .page_swarm .header_bar .ps_icons.right{
-	float: right !important;
+	float: right;
 }
 
 body .page_swarm .header_bar .ps_icon{
-	float: left !important;
-	padding: 2px !important;
-	font-size: 20px !important;
-	color: #000000 !important;
-	margin:4px !important;
+	float: left;
+	padding: 2px;
+	font-size: 20px;
+	color: #000000;
+	margin:4px;
 	border: 1px solid #f2cf39;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
@@ -249,20 +224,20 @@ body .page_swarm .header_bar .ps_icon:hover{
 }
 
 body .page_swarm .header_bar .users{
-	float:right !important;
-	cursor: pointer !important;
+	float:right;
+	cursor: pointer;
 	position: relative;
 }
 
 body .page_swarm .header_bar .bottom_header{
-	font-size: 10px !important;
-	position: absolute !important;
-	bottom: 0 !important;
-	height: 17px !important;
-	border-top: 1px solid #000 !important;
-	width: 400px !important;
-	z-index: 9999 !important;
-	background-color: #f2cf39 !important;
+	font-size: 10px;
+	position: absolute;
+	bottom: 0;
+	height: 17px;
+	border-top: 1px solid #000;
+	width: 100%;
+	z-index: 9999;
+	background-color: #f2cf39;
 }
 
 
@@ -310,111 +285,252 @@ body .page_swarm .header_bar .bottom_header .terms_of_use .terms h2{
 
 body .page_swarm .header_bar .connections{
 
-	margin: 2px !important;
-	padding-right: 8px !important;
-	margin-right: 10px !important;
-	float: right !important;
-	padding: 0px !important;
+	margin: 2px;
+	padding-right: 8px;
+	margin-right: 10px;
+	float: right;
+	padding: 0px;
 }
 body .page_swarm .header_bar .connections .connections_txt{
-	padding:0px !important;
-	margin: 0px !important;
-	float: left !important;
-	line-height: 12px !important;
+	padding:0px;
+	margin: 0px;
+	float: left;
+	line-height: 12px;
 }
 
 body .page_swarm .header_bar .connections .connection_count{
-	color: #000000 !important;
-	padding:0px !important;
-	margin: 0px !important;
-	text-align: center !important;
-	float: left !important;
-	line-height: 12px !important;
-	margin-right: 5px !important;
+	color: #000000;
+	padding:0px;
+	margin: 0px;
+	text-align: center;
+	float: left;
+	line-height: 12px;
+	margin-right: 5px;
 }
 
 body .page_swarm .page_swarm_contents{
-	float:left !important;
-	width:400px !important;
-	font-size: 12px !important;
-	height: 100% !important;
+	float:left;
+	width:100%;
+	font-size: 12px;
+	height: 100%;
 }		
 
-body .page_swarm .page_swarm_contents .usernameForm{
-	margin: 4px !important;
-	padding: 8px !important;
-	-webkit-border-radius: 6px !important;
-	-moz-border-radius: 6px !important;
-	border-radius: 6px !important;
-	font-size: 14px !important;
-	color: #333 !important;
-	text-align: left !important;
+
+body .page_swarm .page_swarm_contents .wait_loader{
+	padding: 10px;
+	text-align: center;
+	margin-top: 40%;
+}
+
+body .page_swarm .page_swarm_contents .wait_loader img{
+	width: 40px;
+}
+
+body .page_swarm .page_swarm_contents .avatar_holder{
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+	margin-top: 8px;
+}
+
+
+body .page_swarm .page_swarm_contents .avatars{
+	border: 4px solid #fff;
+	height: 100%;
+	float: left;
+	overflow:hidden;
+	background-color: #fff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+
+body .page_swarm .page_swarm_contents .avatar_header{
+	width: 100%;
+	overflow: hidden;
+	padding-top: 8px;
+}
+
+body .page_swarm .page_swarm_contents .avatar_header .avatar_select_display{
+	width: 40px;
+	height: 40px;
+	margin-left: 5px;
+	margin-bottom: 5px;
+	float: left;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+	overflow: hidden;	
+}
+
+body .page_swarm .page_swarm_contents .avatar_header .avatar_select_header{
+	font-size: 14px;
+	font-weight: normal;
+	float: left;
+	line-height: 16px;
+	margin-top: 0;
+}
+
+body .page_swarm .page_swarm_contents .avatar_header .random_avatar{
+	font-size: 11px;
+	color: blue;
+	cursor: pointer;
+	float: right;
+}
+
+
+body .page_swarm .page_swarm_contents .avatars ul.avatar_list{
+	list-style: none;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	float: left;
+}
+
+body .page_swarm .page_swarm_contents .avatars ul.avatar_list .folder{
+	width: 40px;
+	height: 40px;
+	display: block;
+	background-color: yellow;
+	position: relative;
+}
+
+body .page_swarm .page_swarm_contents .avatars ul.avatar_list .archive_icon{
+	font-size: 14px;
+	color: #fff;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 3px;
+}
+
+
+body .page_swarm .page_swarm_contents .avatar_holder .avatar_list .avatar_list_spacer{
+	width: 100%;
+	height: 210px;
+	display: block;
 	overflow: hidden;
 }
 
+body .page_swarm .page_swarm_contents .avatars ul.avatar_list li{
+
+	list-style: none;
+	float: left;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	
+	overflow: hidden;
+	margin: 5px;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;	
+}
+
+body .page_swarm .page_swarm_contents .avatars ul.avatar_list li:hover{
+	border : 1px solid #f2cf39;	
+	-webkit-box-shadow: 0px 0px 8px 3px rgba(251, 207, 57, 0.75);
+	-moz-box-shadow:    0px 0px 8px 3px rgba(251, 207, 57, 0.75);
+	box-shadow:         0px 0px 8px 3px rgba(251, 207, 57, 0.75);	
+}
+
+
+body .page_swarm .page_swarm_contents .avatars ul.avatar_list li.avatar_selected{
+	border : 1px solid #f2cf39;
+	-webkit-box-shadow: -1px 0px 13px 4px rgba(242, 207, 57, 1);
+	-moz-box-shadow:    -1px 0px 13px 4px rgba(242, 207, 57, 1);
+	box-shadow:         -1px 0px 13px 4px rgba(242, 207, 57, 1);	
+}
+
+body .page_swarm .page_swarm_contents .usernameForm{
+	margin: 4px;
+	padding: 8px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	font-size: 14px;
+	color: #333;
+	text-align: left;
+	overflow: hidden;
+	height: 100%;
+}
+
+body .page_swarm .page_swarm_contents .usernameForm .username_holder{
+	overflow: hidden;
+	display: block;
+}
+
 body .page_swarm .page_swarm_contents .usernameForm .username{
+	display: block;
+}
+
+body .page_swarm .page_swarm_contents .usernameForm .form{
+	overflow: hidden;
+	width: 100%;
 	float: left;
 }
 
+
 body .page_swarm .page_swarm_contents .usernameForm .join_btn{
-	float: left;
-	
 	-webkit-border-top-right-radius: 4px;
 	-webkit-border-bottom-right-radius: 4px;
 	-moz-border-radius-topright: 4px;
 	-moz-border-radius-bottomright: 4px;
 	border-top-right-radius: 4px;
 	border-bottom-right-radius: 4px;
-
-
-	-webkit-border-top-left-radius: 0px !important;
-	-webkit-border-bottom-left-radius: 0px !important;
-	-moz-border-radius-topleft: 0px !important;
-	-moz-border-radius-bottomleft: 0px !important;
-	border-top-left-radius: 0px !important;
-	border-bottom-left-radius: 0px !important;
-
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
 	color: #fff;
-	font-size: 14px !important;
+	font-size: 14px;
 	background-color: #999;
 	padding: 8px 10px 10px 10px;
-	margin: 0px 6px 0px 0px;
-	cursor: pointer; 
+	margin: 0px;
+	cursor: pointer;
+	width: 70px;
+	float: right;
 }
+
 
 body .page_swarm .page_swarm_contents .usernameForm .join_btn:hover{
 	background-color: #666;
 }
 
 body .page_swarm .page_swarm_contents .usernameForm input{
-	-webkit-border-top-right-radius: 0px !important;
-	-webkit-border-bottom-right-radius: 0px !important;
-	-moz-border-radius-topRight: 0px !important;
-	-moz-border-radius-bottomRight: 0px !important;
-	border-top-right-radius: 0px !important;
-	border-bottom-right-radius: 0px !important;
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	-moz-border-radius-topRight: 0px;
+	-moz-border-radius-bottomRight: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
 
-	-webkit-border-top-left-radius: 4px !important;
-	-webkit-border-bottom-left-radius: 4px !important;
-	-moz-border-radius-topleft: 4px !important;
-	-moz-border-radius-bottomleft: 4px !important;
-	border-top-left-radius: 4px !important;
-	border-bottom-left-radius: 4px !important;
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
 
-	-webkit-box-shadow: inset 1px 1px 1px 0px rgba(255, 255, 255, 1) !important;
-	-moz-box-shadow:    inset 1px 1px 1px 0px rgba(255, 255, 255, 1) !important;
-	box-shadow:         inset 1px 1px 1px 0px rgba(255, 255, 255, 1) !important;
+	-webkit-box-shadow: inset 1px 1px 1px 0px rgba(255, 255, 255, 1);
+	-moz-box-shadow:    inset 1px 1px 1px 0px rgba(255, 255, 255, 1);
+	box-shadow:         inset 1px 1px 1px 0px rgba(255, 255, 255, 1);
 
-	border-right: 4px solid #fff !important;
-	font-size: 14px !important;
-	width: 200px !important;
-	padding: 8px !important;
-	border: 1px solid #fff !important;
-	margin: 0 !important;
+	border-right: 4px solid #fff;
+	font-size: 14px;
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #fff;
+	margin: 0;
 }
 
 body .page_swarm .page_swarm_contents .usernameForm input:focus{
-	outline: 0 !important;
+	outline: 0;
 }
 
 body .page_swarm .page_swarm_contents .usernameForm p{
@@ -422,37 +538,32 @@ body .page_swarm .page_swarm_contents .usernameForm p{
 }
 
 body .page_swarm .page_swarm_contents .chatarea{
-	-webkit-border-radius: 4px !important;
-	-moz-border-radius: 4px !important;
-	border-radius: 4px !important;	
-	padding:0 !important;
-	overflow: hidden !important;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	
+	padding:0;
+	overflow: hidden;
 	height: 100%;
 }
 
 body .page_swarm .page_swarm_contents .chatarea .chat_wrapper{
-	overflow: hidden !important;
+	overflow: hidden;
 	height: 100%;
 }
 
 body .page_swarm .page_swarm_contents .conversation_holder{
-	height: 100%;
-	
-	/*overflow-y: scroll;*/
+	height: 100% !important;
 	overflow: hidden;
-
-	position: relative;
 	margin-top: 10px;
 }
 
 body .page_swarm .page_swarm_contents .conversation_holder .empty_comments{
-	padding: 6px !important;
+	padding: 6px;
 }
 
 body .page_swarm .page_swarm_contents .conversation_holder .conversation{
+	height: 100% !important;
 }
-
-
 
 body .page_swarm .page_swarm_contents .conversation_holder .conversation .emotocon{
 	padding-left: 2px;
@@ -461,32 +572,32 @@ body .page_swarm .page_swarm_contents .conversation_holder .conversation .emotoc
 
 
 body .page_swarm .page_swarm_contents .chatarea .message{
-	border: 1px solid #999 !important;
-	margin: 6px !important;
-	position: relative !important;
-	padding: 4px !important;
-	-webkit-border-radius: 4px !important;
-	-moz-border-radius: 4px !important;
-	border-radius: 4px !important;	
-	background-color: #fff !important;
+	border: 1px solid #999;
+	margin: 7px;
+	position: relative;
+	padding: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	
+	background-color: #fff;
 	overflow: hidden;
 }
 
 
 body .page_swarm .page_swarm_contents .chatarea .facecons{
-	padding: 0px !important;
-	margin: 0px !important;
-	width: 100% !important;
-	border-top: 1px solid #ccc !important;
-	overflow: hidden !important;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	overflow: hidden;
 }
 
 body .page_swarm .page_swarm_contents .chatarea .facecon{
-	background-color: #fff !important;
-	float: right !important;
-	padding: 3px !important;
-	margin: 0 !important;
-	cursor: pointer !important;
+	background-color: #fff;
+	float: right;
+	padding: 3px;
+	margin: 0;
+	cursor: pointer;
 }
 
 
@@ -502,23 +613,33 @@ body .page_swarm .page_swarm_contents .chatarea .message .facecons_trigger{
 }
 
 body .page_swarm .page_swarm_contents .chatarea .message .data{
-	-webkit-border-radius: 4px !important;
-	-moz-border-radius: 4px !important;
-	border-radius: 4px !important;	
-	font-size: 14px !important;
-	padding: 0 !important;
-	margin: 0 !important;
-	display: block !important;
-	background-color: #fff !important;
-	border: 1px solid #fff !important;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;	
+	font-size: 14px;
+	padding: 0;
+	margin: 0;
+	display: block;
+	background-color: #fff;
+	border: 1px solid #fff;
 	width: 100%;
 	height: 70px;
-	outline: 0 !important;
+	outline: 0;
 	resize: none;
 	text-align: left;
 	overflow: hidden;
-	overflow-y: auto;
+	overflow-y: auto{
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;	};
 	word-wrap:inherit; 
+}
+
+
+
+body .page_swarm.min .page_swarm_contents .chatarea .message .data{
+	height: 40px;
 }
 
 body .page_swarm .page_swarm_contents .chatarea .message .data .emotocon{
@@ -528,67 +649,117 @@ body .page_swarm .page_swarm_contents .chatarea .message .data .emotocon{
 
 
 body .page_swarm .page_swarm_contents .chatarea .message .data:focus{
-	outline: 0 !important;
+	outline: 0;
 }
 
 
 body .page_swarm .page_swarm_contents .chatarea .message_post{
-	width: 100% !important;
-	overflow: hidden !important;
+	width: 100%;
+	overflow: hidden;
 	margin: 0;
 	padding: 0;
 	margin-bottom: 10px;
 }
 
+body .page_swarm .page_swarm_contents .chatarea .message_post .message_avatar{
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+body .page_swarm .page_swarm_contents .chatarea .message_post.left .message_avatar{
+	width: 40px;
+	height: 40px;
+	margin-left: 8px;	
+	margin-right: 8px;	
+	margin-top: 0;
+	float: left;
+}
+body .page_swarm .page_swarm_contents .chatarea .message_post.right .message_avatar{
+	width: 40px;
+	height: 40px;
+	margin-right: 8px;
+	margin-top: 0;
+	float: right;
+	margin-left: 8px;
+}
+
+
+body .page_swarm .page_swarm_contents .chatarea .message_post .username{
+	font-size: 11px;
+	display: block;	
+	font-weight: bold;
+	line-height: 12px;
+	float: left;
+}
+
 body .page_swarm .page_swarm_contents .chatarea .message_post .date{
-	font-size: 10px !important;
+	font-size: 10px;
 	color: #999;
+	display: block;
+	line-height: 12px;
+	float: right;
 }
 
 body .page_swarm .page_swarm_contents .chatarea .message_post.left{
 }
-body .page_swarm .page_swarm_contents .chatarea .message_post.left p.name{
-	text-align: right !important;
-	float: left !important;
-	width: 80px !important;
-	margin-left: 6px;
+
+body .page_swarm .page_swarm_contents .chatarea .message_post p.message_data .message_d{
+	width: 100%;
+	float: left;
 }
+
 body .page_swarm .page_swarm_contents .chatarea .message_post.left p.message_data{
-	float: right !important;
-	padding: 4px !important;
-	margin: 0 !important;
-	width: 290px !important;
-	background-color: #ffffff !important;
-	-webkit-border-radius: 4px !important;
-	-moz-border-radius: 4px !important;
-	border-radius: 4px !important;		
-	margin-right: 8px !important;
+	
+	padding: 6px;
+	margin: 0;
+	overflow: hidden;
+	background-color: #ffffff;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;		
+	margin-left: 8px;	
+	margin-right: 8px;
 	text-align: left;
+}
+
+body .page_swarm .page_swarm_contents .chatarea .message_post.left p.message_data .message_d{
+	padding: 0;
+	margin: 0;
+	border: none;
+	float: left;	
+	margin-top: 5px;	
+	display: block;			
 }
 
 body .page_swarm .page_swarm_contents .chatarea .message_post.right{
 }
-body .page_swarm .page_swarm_contents .chatarea .message_post.right p.name{
-	text-align: left !important;
-	float: right !important;
-	width: 80px !important;
-	margin-right: 6px;
-}
+
 
 body .page_swarm .page_swarm_contents .chatarea .message_post.right p.message_data{
-	float: left !important;
-	padding: 4px !important;
-	margin: 0 !important;
-	width: 290px !important;
-	background-color: #ffffff !important;
-	-webkit-border-radius: 4px !important;
-	-moz-border-radius: 4px !important;
-	border-radius: 4px !important;		
-	margin-left: 8px !important;
+	overflow: hidden;
+	padding: 6px;
+	margin: 0;
+	background-color: #ffffff;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;		
+	margin-left: 8px;	
+	margin-right: 8px;
 	text-align: left;
 }
 
+body .page_swarm .page_swarm_contents .chatarea .message_post.right p.message_data .message_d{
+	padding: 0;
+	margin: 0;
+	border: none;
+	float: left;
+	margin-top: 5px;	
+	display: block;		
+}
+
 body .page_swarm .conversation_holder .conversation .spacer{
-	height: 200px !important;
-	width: 100% !important;
+	height: 200px;
+	width: 100%;
 }

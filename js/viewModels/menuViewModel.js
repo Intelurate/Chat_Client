@@ -44,12 +44,13 @@ var MenuView = Backbone.View.extend({
 			this.close();
 		}else{			
 			this.currentMenuType = menuType;
-			this.loadMenu(this.currentMenuType);
+			this.loadMenu(this.currentMenuType);	
+			this.menuWidth = PS.Views[menuType+"MenuView"].width;				
+			this.open(this.menuWidth);			
 		}
 	},
 
 	loadMenu: function(menuType) {
-
 		if(!PS.Models[menuType+"MenuView"]) {
 			PS.Models[menuType+"MenuModel"] = new window[menuType+"MenuModel"]();
 			PS.Views[menuType+"MenuView"] = new window[menuType+"MenuView"]({
@@ -62,11 +63,7 @@ var MenuView = Backbone.View.extend({
 
 			PS.Views[menuType+"MenuView"].render();
 			this.$el.empty().append(PS.Views[menuType+"MenuView"].$el);
-		}
-
-		this.menuWidth = PS.Views[menuType+"MenuView"].width;		
-		this.open(this.menuWidth);
-
+		}	
 	},
 
 	open: function(width) {

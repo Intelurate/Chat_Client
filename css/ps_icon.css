@@ -1,0 +1,28 @@
+
+body .page_swarm_icon{
+
+	opacity: .5;
+	border: 1px solid #000 !important;
+	padding: 0 !important;
+	margin: 12px !important;
+	height: 40px !important;
+	width: 40px !important;
+	display: block !important;
+	position: fixed !important;
+	right: 0 !important;
+	top: 0 !important;
+	z-index: 99999999999;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	padding: 8px;
+	overflow: hidden;
+	background-color: #f2cf39;	
+}
+
+body .page_swarm_icon img{
+	width: 30px;
+	height: 30px;
+	margin-top: 5px;
+	margin-left: 5px;
+}

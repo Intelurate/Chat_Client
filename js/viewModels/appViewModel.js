@@ -1,22 +1,19 @@
 
 
 
-var AppModel = Backbone.Model.extend({
+var PSAppModel = Backbone.Model.extend({
 
 	initialize: function () {
 		this.fetch();
 	},
 
 	fetch : function() {
-		chrome.runtime.onMessage.addListener(_.bind(function(request, sender, sendResponse) {
-			switch(request.command) {
-				case 'userleftroom':
-					this.set({ 'userleftroom' : { data : request.data } });
-				break;		
-				case 'userentersroom':
-					this.set({ 'userentersroom' : { data : request.data } });
-				break;
-			}
+
+		PS.socket.on('userleftroom', _.bind(function (d) {			
+			this.set({ 'userleftroom' : { data : d }});
+		}, this));
+		PS.socket.on('userentersroom', _.bind(function (d) {			
+			this.set({ 'userentersroom' : { data : d }});
 		}, this));
 	}
 
@@ -24,7 +21,7 @@ var AppModel = Backbone.Model.extend({
 
 
 
-var AppView = Backbone.View.extend({
+var PSAppView = Backbone.View.extend({
 
 	className : 'page_swarm',
 
@@ -40,9 +37,12 @@ var AppView = Backbone.View.extend({
 	},
 
 	userLeftRoom: function () {
+
 		var userleftroom = this.model.toJSON().userleftroom;
+
 		PS.Views.HeaderView.$el.find('.connections .connection_count').text(userleftroom.data.count);
 		PS.Views.StatusView.updateStatus(userleftroom.data.user.username + " has left the discussion...");
+
 	},
 
 	userEntersRoom: function () {
@@ -67,45 +67,13 @@ var AppView = Backbone.View.extend({
 		});
 		this.$el.empty().append(PS.Views.StatusView.$el);
 
-		PS.Models.TabModel = new TabModel(); 
-		PS.Views.TabView  = new TabView({
-			model : PS.Models.TabModel
-		});
-
 		PS.Models.DiscModel = new DiscModel(); 
 		PS.Views.DiscView  = new DiscView({
 			model : PS.Models.DiscModel
 		});		
-		this.$el.append(PS.Views.TabView.$el);		
+		
 		this.$el.append(PS.Views.DiscView.$el);
-
-		//chrome.storage.local.remove('appStatus', _.bind(function(result) {}));
-
-		chrome.storage.local.get('appStatus', _.bind(function(result) {
-
-			if(result.appStatus) {
-				if(result.appStatus.status == 'close') {
-					PS.Views.DiscView.$el.css({
-						'right' : '-500px'
-					});
-					PS.Views.TabView.$el.css({
-						'right' : '0px'
-					});
-				}else{
-					PS.Views.DiscView.$el.css({
-						'right' : '0px'
-					});
-				}
-			}else{
-				setTimeout(_.bind(function(){
-					PS.Views.DiscView.close();
-				}, this), 500);
-			}
-
-			this.checkLock();
-
-		},this));
-
+		
 	},
 
 	checkUpdates: function() {
@@ -133,23 +101,24 @@ var AppView = Backbone.View.extend({
 		this.checkLock();
 	},
 
-	checkLock: function() {
-		chrome.storage.local.get('toggle_lock', function(result) {
+	// checkLock: function() {
 
-			if(result.toggle_lock) {
-				if(result.toggle_lock.locks) {
-					var host = MD5(window.location.host);
-					if(!result.toggle_lock.locks[host]) {
-						$('body').find('.page_swarm').css({'display':'block'});
-					}else{
-						$('body').find('.page_swarm').css({'display':'none'});
-					}
-				}
-			}else{
-				$('body').find('.page_swarm').css({'display':'block'});
-			}
-		});
-	},
+	// 	chrome.storage.local.get('toggle_lock', function(result) {
+
+	// 		if(result.toggle_lock) {
+	// 			if(result.toggle_lock.locks) {
+	// 				var host = MD5(window.location.host);				
+	// 				if(!result.toggle_lock.locks[host]) {
+	// 					$('body').find('.page_swarm').css({'display':'block'});
+	// 				}else{
+	// 					$('body').find('.page_swarm').css({'display':'none'});
+	// 				}
+	// 			}
+	// 		}else{
+	// 			$('body').find('.page_swarm').css({'display':'block'});
+	// 		}
+	// 	});
+	// },
 
 	toggleLock: function() {
 	
@@ -193,13 +162,4 @@ var AppView = Backbone.View.extend({
 	}
 
 });
-
-
-
-
-
-
-
-
-
 

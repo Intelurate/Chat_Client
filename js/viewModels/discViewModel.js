@@ -53,18 +53,8 @@ var DiscView = Backbone.View.extend({
 		}
 	},
 
-	initialize: function () {
-		this.render();
-		if(this.opacityLock == false) {
-			this.animateOpacity('.1');
-		}
-
-		$('body').click(_.bind(function(e) {
-			if(this.onFocus == false) {
-				this.animateOpacity('.1');
-			}
-		}, this) );
-
+	initialize: function () {		
+		this.render();		
 	},
 
 	render: function () {
@@ -77,11 +67,14 @@ var DiscView = Backbone.View.extend({
 
 
 		this.$el.append('<div class="page_swarm_left"></div>');	
+		
 		PS.Models.HeaderModel = new HeaderModel(); 
 		PS.Views.HeaderView  = new HeaderView({
 			model : PS.Models.HeaderModel
 		});
 		this.$el.find('.page_swarm_left').append(PS.Views.HeaderView.$el);	
+
+
 		PS.Models.ContentModel = new ContentModel(); 
 		PS.Views.ContentView  = new ContentView({
 			model : PS.Models.ContentModel
@@ -100,8 +93,10 @@ var DiscView = Backbone.View.extend({
 			this.sliding = false;
 			this.appStatus = 'closed';
 			PS.Views.TabView.open();
+
 			//chrome.runtime.sendMessage({'appStatus': { status : 'close' } }, function(){});
 			chrome.storage.local.set({'appStatus': { status : 'close' } }, function(){});	
+
 		}, this));	
 	},
 
@@ -114,8 +109,10 @@ var DiscView = Backbone.View.extend({
 		}, 300, _.bind(function() {
 			this.sliding = false;
 			this.appStatus = 'open';
+
 			//chrome.runtime.sendMessage({'appStatus': { status : 'open' } }, function(){});
 			chrome.storage.local.set({'appStatus' : { status : 'open' } }, function(){});		
+
 		}, this));
 	},
 

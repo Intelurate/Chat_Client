@@ -9,18 +9,13 @@ var UsersMenuModel = Backbone.Model.extend({
 
 	fetch : function() {		
 		var scope = this;
-		chrome.runtime.onMessage.addListener(_.bind(function(request, sender, sendResponse) {
-			switch(request.command) {
-				case 'showuserlist':
-					this.set({ 'showuserlist' : { data : request.data } });
-				break;					
-			}
-		}, this));	
+
+		PS.socket.on('showuserlist', _.bind(function (d) {
+			console.log(d);
+			this.set({ 'showuserlist' : { data : d } });
+		}, this));
 	}
-
 });
-
-
 
 var UsersMenuView = Backbone.View.extend({
 
@@ -36,22 +31,22 @@ var UsersMenuView = Backbone.View.extend({
 
 	initialize: function () {
 		this.listenTo(this.model, "change:showuserlist", this.showUsersList);			
-		//PS.socket.emit('showuserlist', { "room" : PS.room });		
 	},
 
 	render: function () {
-		this.$el.empty().append('<h2>ONLINE</h2><div class="user_list"></div>');	
-		chrome.runtime.sendMessage({ command : 'getuserlist', data : { room : PS.room, user : PS.user } }, function(){});
-
+		this.$el.empty().append('<h2>ONLINE</h2><div class="user_list"></div>');
+		//PS.socket.emit('getuserlist', data : { room : PS.room, user : PS.user } );
 	},
 
 	showUsersList: function() {
 
+		console.log(this.model.toJSON().showuserlist);
+		
 		var users = this.model.toJSON().showuserlist.data.users;
-
-		console.log(users)
-
 			usersKeys = _.keys(users);
+			
+		PS.Views.HeaderView.setUserCount(usersKeys.length);
+
 		var userBuilder = [];
 		for(userKey in usersKeys) {
 			userBuilder.push( '<p>' + users[usersKeys[userKey]] + '</p>' );

@@ -1,57 +1,27 @@
 {
     "name": "Page Swarm Online",
     "description": "Page Swarm Online",
-    "version": "1.0.1.8",
+    "version": "1.0.1.9",
     "permissions": [
         "tabs", "http://*/*", "https://*/*",
-        "storage"
+        "storage",
+        "identity"
     ],
     
     "content_scripts": [{        
         "matches": ["http://*/*", "https://*/*"],
         "exclude_matches": [
             "https://eddie.openpeak.org/*",
-            "http://techcrunch.com/", "http://techcrunch.com/page/*", 
+            "http://techcrunch.com/page/*", 
             "https://www.google.com/*", "https://mail.google.com/*"
         ],
         "css":[
-            "css/styles.css",
-            "css/fonts.css", 
-            "css/perfect-scrollbar.css"],
+            "css/ps_icon.css"],
         "js":[
             "js/jquery.js",
-            "js/jquery-ui.js",
-            "js/underscore.js", 
-            "js/backbone.js",
-            "js/caret.js",
-            "js/icanhaz.js",  
-            "js/md5.js", 
-            "js/templates.js",
-            "js/jquery.mousewheel.js",
-            "js/perfect-scrollbar.js",
-            "js/viewModels/appViewModel.js",
-            "js/viewModels/tabViewModel.js",
-            "js/viewModels/discViewModel.js",
-            "js/viewModels/menuViewModel.js",
-            "js/viewModels/menus/usersMenuViewModel.js",
-            "js/viewModels/menus/settingsMenuViewModel.js",
-            "js/viewModels/headerViewModel.js",
-            "js/viewModels/contentViewModel.js",
-            "js/viewModels/statusViewModel.js",
-            "js/chat.js",
-            "js/onMessage.js"]
-    },{
-        "matches": [
-        "http://techcrunch.com/*", "http://techcrunch.com/page/*"
-        ],
-        "css":[
-            "css/google_search.css"],
-        "js":[
-            "js/jquery.js",
-            "js/socketio.js", 
-            "js/md5.js", 
-            "js/portals/techCrunchConnections.js"]
-    },
+            "js/loadApp.js"
+        ]        
+    },   
     {
         "matches": [
         "https://www.google.com/*"
@@ -60,6 +30,7 @@
             "css/google_search.css"],
         "js":[
             "js/jquery.js",
+            "js/underscore.js", 
             "js/socketio.js", 
             "js/md5.js", 
             "js/portals/googleSearchConnections.js"]
@@ -69,13 +40,13 @@
         "js/socketio.js",
         "js/underscore.js",
         "js/md5.js",
-        "js/events/sockets.js",
         "js/background.js"],
         "persistent": false
     },  
     "browser_action": {
         "default_title": "Set this page's color.",
-        "default_icon": "icon.png"
+        "default_icon": "icon.png",
+        "default_popup": "app_menu.html"        
     },
     "manifest_version": 2,
     "web_accessible_resources": [

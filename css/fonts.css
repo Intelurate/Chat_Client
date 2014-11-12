@@ -26,11 +26,23 @@
 }
 
 
+.ps-icon-stack:before {
+	content: "\e616";
+}
 .ps-icon-download:before {
 	content: "\e609";
 }
 .ps-icon-upload:before {
 	content: "\e60a";
+}
+.ps-icon-menu:before {
+	content: "\e617";
+}
+.ps-icon-minus:before {
+	content: "\e618";
+}
+.ps-icon-plus:before {
+	content: "\e619";
 }
 .ps-icon-directions:before {
 	content: "\e600";
@@ -53,10 +65,10 @@
 .ps-icon-cog:before {
 	content: "\e605";
 }
-.ps-icon-minus:before {
+.ps-icon-minus2:before {
 	content: "\e60c";
 }
-.ps-icon-plus:before {
+.ps-icon-plus2:before {
 	content: "\e60d";
 }
 .ps-icon-info:before {
@@ -67,6 +79,9 @@
 }
 .ps-icon-text:before {
 	content: "\e608";
+}
+.ps-icon-archive:before {
+	content: "\e61a";
 }
 .ps-icon-arrow-left:before {
 	content: "\e60e";
@@ -92,5 +107,3 @@
 .ps-icon-arrow-right2:before {
 	content: "\e615";
 }
-
-

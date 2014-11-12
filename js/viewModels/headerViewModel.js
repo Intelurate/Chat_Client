@@ -22,7 +22,6 @@ var HeaderView = Backbone.View.extend({
 		'click .close_app' : 'closeApp',
 
 		'click .minmize_up' : 'minimizeAppUp',
-
 		'click .minmize_down' : 'minimizeAppDown',				
 
 		'click .users' : 'showLiveUsers',		
@@ -41,15 +40,12 @@ var HeaderView = Backbone.View.extend({
 		//PS.socket.emit('getcurrentconnections', { "room" : PS.room });
 	},
 
-	addNewUser: function(e) {
-
-		chrome.runtime.sendMessage({ command : 'endconnection', data : { room : PS.room, user : PS.user } }, function(){});
-
-		//PS.socket.emit('changeconnection', { "room" : PS.room });
+	addNewUser: function(e) {		
+		PS.socket.emit('endconnection', { room : PS.room, user : PS.user });
 	},
 
 	render: function () {
-		this.$el.append(ich.headerBar());
+		this.$el.append(ich.headerBar({ url : PS.Url }));
 		//this.$el.find('.terms_of_use .terms .terms_scroller').perfectScrollbar();
 	},
 
@@ -59,8 +55,8 @@ var HeaderView = Backbone.View.extend({
 
 		if(this.termsDisplayed == false) {
 			this.$el.find('.terms_of_use .terms').animate({
-				width: '388px',
-				height: '300px',
+				width: '95%',
+				height: '400px',
 				left: '6px',
 				bottom: '22px'						
 			}, 300, _.bind(function() {
@@ -81,8 +77,6 @@ var HeaderView = Backbone.View.extend({
 	closeApp: function() {
 		PS.Views.DiscView.close();
 	},
-
-
 
 	showSettings: function(e) {
 		PS.Views.MenuView.toggle('Settings');
